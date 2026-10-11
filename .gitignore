@@ -1,0 +1,48 @@
+# Allowlist, not blocklist.
+#
+# The first version of this file excluded paths by pattern and was wrong in two ways that a
+# dry run caught: "reviewer*.md" does not match "19reviewer-comments.md" (the pattern is
+# anchored at the start), and the third-party PDFs live under a differently named directory
+# than the one that was excluded. A blocklist has to enumerate every sensitive path and fails
+# silently when it misses one; it also fails open, so a mistake publishes material.
+#
+# So: ignore everything, then un-ignore the artifact. A new file is excluded until someone
+# deliberately adds it here, which fails closed.
+
+/*
+!/.gitignore
+!/README.md
+!/LICENSE
+!/CHANGELOG.md
+!/tools/
+
+# The only project directory that belongs in the artifact.
+!/Rec-AD/
+/Rec-AD/*
+!/Rec-AD/code/
+
+# Inside the code tree, only source and its two configuration files.
+/Rec-AD/code/*
+!/Rec-AD/code/**/
+!/Rec-AD/code/**/*.py
+!/Rec-AD/code/requirements.txt
+!/Rec-AD/code/config.yaml
+
+# Large generated inputs are rebuilt by the documented command; the IEEE 300-bus case alone
+# is 763 MB, above GitHub's 100 MB per-file limit.
+/Rec-AD/code/data_cache/
+**/*.npz
+
+# Results are held back until the resource measurements are re-run on a named device. The
+# committed numbers are debug-tier, and publishing them next to a paper that reports
+# device-measured resources invites reading them as the paper's numbers.
+/Rec-AD/code/results/
+
+# Virtual environments: several GB of CUDA runtime.
+**/.venv*/
+**/__pycache__/
+**/*.py[cod]
+
+# Local backups written during editing.
+**/*.bak*
+**/*_backup_*/

@@ -1,0 +1,203 @@
+# =============================================================================
+# Rec-AD Major Revision — global experiment configuration
+# =============================================================================
+
+# --- reproducibility ---------------------------------------------------------
+# Every experiment runs this many seeds and reports mean +/- std.
+seeds: [0, 1, 2]
+
+# --- data --------------------------------------------------------------------
+data:
+  # Path to the .npz contract file. Overridden by --data on the CLI.
+  path: "data_cache/ieee118.npz"
+  # Fractional split used ONLY when the npz carries no `split` array.
+  split_ratios: { train: 0.7, val: 0.15, test: 0.15 }
+  # Standardise `dense` and `node_feat` using TRAIN statistics only.
+  #
+  # ★ MUST STAY false. Do not turn this on.
+  #
+  # The threat model requires stealthy attacks (a = Hc) to be invisible to
+  # residual bad-data detection. Residual BDD uses a weighted least-squares
+  # test whose weighting is the inverse NOISE covariance. Standardising divides
+  # each dimension by its SIGNAL standard deviation, which silently replaces
+  # that weighting; a = Hc is then no longer in the null space of the residual
+  # test and the stealth property is destroyed.
+  #
+  # Measured on data_cache/ieee118.npz with everything else held fixed:
+  #
+  #   standardize   normal_fp   random   stealthy   load_redist
+  #   true             0.1180   0.1377     1.0000        0.9979   <- inverted
+  #   false            0.0087   1.0000     0.0058        0.1653   <- correct
+  #
+  # With standardize=true the detector flags nearly everything, so the
+  # per-attack-family numbers are meaningless. baselines/bdd.py already warns
+  # about this; the default here contradicted it.
+  #
+  # Reproduce with: python diagnose_standardize.py
+  standardize: false
+  # DataLoader worker processes. 0 loads in the main process.
+  # Raise this on a Linux GPU box; keep 0 where worker spawn is restricted
+  # (Windows without a console, or any sandboxed/containerised runner).
+  num_workers: 0
+
+# --- deployment resource budget ---------------------------------------------
+# Written into the paper (Sec. V.A). Baselines are judged against this line.
+# Rationale: substation intelligent terminal, industrial typical.
+budget:
+  vram_gb: 8
+  power_w: 60
+  latency_ms: 500          # 1/60 of the 30 s SCADA dispatch cycle
+
+# --- resource measurement ----------------------------------------------------
+measure:
+  # Device tier used for ALL resource numbers that go into the paper.
+  #   t4 | rtx2060 | jetson   -> publishable
+  #   local | h100            -> DEBUG ONLY, never report in the paper
+  tier: "t4"
+  latency:
+    batch_size: 1          # streaming inference, matches Table V of the paper
+    warmup_iters: 50
+    measure_iters: 500
+    percentiles: [50, 95, 99]
+  energy:
+    sample_interval_ms: 100
+    idle_baseline_s: 5     # measure idle power first, subtract it
+
+# --- embedding backend -------------------------------------------------------
+# "reference" -> recad/tt_table.py (pure PyTorch, always available)
+# "cuda_efftt" -> your C++/CUDA Eff-TT via the module named below
+embedding_backend: "reference"
+cuda_efftt_module: ""
+
+# --- TT table hyper-parameters ----------------------------------------------
+tt:
+  # Factorisation shape. M = m1*m2*...*md, N = n1*n2*...*nd.
+  # `split` is chosen per dataset by the shape search in tt_table.suggest_shape().
+  split:
+    d: 3                   # number of TT cores
+    n_per_core: 4          # embedding dimension is factored into n_per_core^d
+  rank: 32                 # TT rank R; swept by experiments/run_rank_sweep.py
+  rank_sweep: [4, 8, 16, 24, 32, 48, 64]
+  reuse:
+    sample_level: true     # share partial contractions within a sample
+    batch_level: true      # share across the batch via the reuse buffer
+
+# --- training ----------------------------------------------------------------
+train:
+  epochs: 20
+  batch_size: 4096
+  lr: 0.001
+  weight_decay: 0.0001
+  optimizer: "adam"
+  grad_clip: 5.0
+  early_stop_patience: 4
+  amp: false               # mixed precision; keep false for fair latency numbers
+  # Class imbalance handling. Report which one you used.
+  pos_weight: null         # null = unweighted BCEWithLogits
+
+# --- baselines ---------------------------------------------------------------
+baselines:
+  # Classical / physics
+  bdd:
+    enabled: true
+    alpha: 0.01            # chi-square significance level
+    # LNR threshold in sigma units for the largest-normalised-residual test
+    lnr_sigma: 3.0
+
+  # Traditional machine learning
+  svm:
+    enabled: true
+    kernel: "rbf"
+    C: 1.0
+    gamma: "scale"
+    # Kernel SVM is O(n^2)-O(n^3) in the training set AND, with
+    # probability=True, runs an internal 5-fold CV on top of that. At the
+    # previous cap of 200000 (no effective cap; the train split is ~14000)
+    # a single seed took 1092-1140 s and the fit crashed inside _libsvm
+    # with an access violation. Capped so the baseline is tractable; the
+    # subsampling must be disclosed wherever SVM results are reported.
+    max_train_samples: 4000
+  rf:
+    enabled: true
+    n_estimators: 300
+    max_depth: null
+    n_jobs: -1
+
+  # Deep learning
+  autoencoder:
+    enabled: true
+    hidden: [256, 64, 256]
+    latent: 16
+    # Anomaly score = reconstruction MSE; threshold picked on the val set.
+  lstm:
+    enabled: true
+    hidden: 128
+    layers: 2
+    bidirectional: false
+  cnn:
+    enabled: true
+    channels: [32, 64, 128]
+    kernel: 3
+    dropout: 0.1
+  gnn:
+    enabled: true
+    variants: ["gcn", "gat"]
+    hidden: 64
+    layers: 2
+    heads: 4               # GAT only
+    dropout: 0.1
+  transformer:
+    enabled: true
+    d_model: 128
+    nhead: 4
+    layers: 3
+    ff: 256
+    dropout: 0.1
+
+# --- two-stage tuning --------------------------------------------------------
+# Stage 1 (H100): search here to give baselines their best shot.
+# Stage 2 (edge): re-run with the winning config and measure resources.
+# This two-stage protocol should be described in the paper's setup section.
+baseline_tuning:
+  enabled: false
+  grid:
+    lr: [0.0003, 0.001, 0.003]
+    batch_size: [1024, 4096]
+    epochs: [10, 20]
+
+# --- ablation ----------------------------------------------------------------
+ablation:
+  # The three components claimed in the paper's contribution list.
+  components:
+    eff_tt: true           # TT-compressed embedding table
+    reorder: true          # topology-aware index reordering
+    pipeline: true         # pipelined training / GPU-side cache
+  # Also run the cumulative build-up (none -> +eff_tt -> +reorder -> +pipeline).
+  cumulative: true
+  # Per-arm learning rate. The dense and TT embeddings do not have the
+  # same effective learning rate -- on identical indices the dense
+  # table's backward gradient is 2.6x the TT table's -- so one nominal
+  # lr handicaps whichever arm it does not suit and manufactures an
+  # apparent 'TT improves accuracy' effect. Measured: the naive gap is
+  # +0.13 AUC and it falls to +0.010 once each arm is tuned.
+  # Measured optima on ieee118: TT 1e-3, dense 1e-2.
+  lr_by_embedding:
+    eff_tt: 0.001
+    dense: 0.003
+
+# --- federated learning ------------------------------------------------------
+# Feasibility study only. The paper claims NO privacy guarantee.
+fedavg:
+  silos: 4
+  rounds: 30
+  local_epochs: 2
+  # Only TT cores are exchanged; report bytes/Round vs full-embedding FedAvg.
+  sync: "tt_cores"
+  baselines: ["full_embedding"]
+
+# --- output ------------------------------------------------------------------
+output:
+  results_dir: "results"
+  figures_dir: "figures"
+  save_predictions: true   # keep per-sample scores for ROC / threshold analysis
+  log_level: "INFO"
