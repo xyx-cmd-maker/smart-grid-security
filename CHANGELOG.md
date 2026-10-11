@@ -11,12 +11,36 @@ to make such moves traceable rather than surprising.
   control. Runs across IEEE 14/57/118/300.
 - Added the cumulative ordering to `run_ablation.py` alongside one-at-a-time, so a reader can
   check both "what does each component do alone" and "do the contributions stack".
-- **Measured a reproducibility gap.** Rerunning the component ablation in a fresh process:
-  every cell using the dense embedding table reproduced bit-for-bit (8 of 8), while cells
-  using the tensor-train table agreed on 1 of 3 seeds (differences 0, 0.0006 and 0.004 AUC).
-  The discriminator is the embedding table, not the cell. Cause not yet isolated; the
-  reference TT path factorises via SVD, and no BLAS thread count is pinned anywhere in the
-  code, which is consistent with thread-scheduling-dependent float32 reduction order.
+- **Measured the run-to-run reproducibility of the ablation.** Rerunning the same eight cells
+  with the same seeds in fresh processes, twice, and comparing per-seed AUC:
+
+  | group | rows compared | bit-identical | last-bit noise | diverged |
+  |---|---|---|---|---|
+  | dense embedding table | 15 | 15 | 0 | 0 |
+  | tensor-train table | 3 | 1 | 1 | 1 |
+
+  The discriminator is the embedding table, not the cell: `only:reorder` and `only:pipeline`
+  use the dense table and reproduce exactly, while `only:eff_tt` does not.
+
+  **Three tiers, not two.** A binary "reproducible / not" label conflates two different
+  things. "Last-bit noise" means the same computation rounded differently -- the pipeline is
+  deterministic and only the final bits moved. "Diverged" means a genuinely different model
+  was trained. The tensor-train row that diverged moved by 0.0056 AUC; the other two moved by
+  1e-7 and 0. One cell produced 0.4994, 0.5034 and 0.4938 across three separate runs.
+
+  **Where this does and does not matter.** Only 11 of 62 result files contain any
+  tensor-train cell, and four of those are self-test or synthetic-topology runs that were
+  already excluded. The three that feed results are the component ablation, the scaling sweep
+  and the federated comparison. The headline structural numbers from the latter two --
+  compression ratio and per-round communication -- are byte counts and are unaffected. Every
+  affected AUC sits at chance, so a 0.006 AUC wobble does not change any reading. The
+  per-family comparison table and the manifold test use no embedding table and are unaffected.
+
+  **Cause not isolated.** The reference tensor-train path factorises via SVD, and no BLAS
+  thread count is pinned anywhere in the code, which is consistent with
+  thread-scheduling-dependent float32 reduction order -- but that is a hypothesis. The
+  controlled test (pinning the thread count, or `torch.use_deterministic_algorithms`) has not
+  been run.
 
 ## 2026-10-09
 
