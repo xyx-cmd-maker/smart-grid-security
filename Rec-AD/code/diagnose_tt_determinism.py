@@ -1,11 +1,22 @@
 """Test whether pinning the BLAS thread count makes the tensor-train table reproducible.
 
-The observation this tests: cells that build a tensor-train table vary between runs while
-cells that use a dense table are bit-identical (17 of 17 across two reruns). The hypothesis
-is that the TT path's SVD goes through multi-threaded BLAS, whose float32 reduction order
-depends on thread scheduling, and that nothing in the codebase pins that order --
-`set_seed` sets four RNGs and two cuDNN flags, and no `set_num_threads` or `OMP_NUM_THREADS`
-appears anywhere.
+**Result as of 2026-10-11: the table construction is reproducible either way.**
+
+    threads=0 (unpinned, 16 threads):  b0b8bf62a33b4400   three separate processes, all equal
+    threads=1:                         625a0789d1d0fb69   three separate processes, all equal
+
+So the thread count does change the weights -- the two settings disagree with each other --
+but it does not make them *unstable*. This refutes the hypothesis that the ablation's
+run-to-run divergence comes from multi-threaded reduction order in the table's SVD. The
+search has to move downstream, and the standing unexplored candidate is the `PYTHONHASHSEED`
+residue in `recad/common.py`: the variable is assigned inside `set_seed`, which runs after
+interpreter start, so it has no effect; set and dict iteration order over strings can
+therefore differ between processes. Recorded as an open item since 2026-10-06.
+
+An earlier version of this script defaulted to `--rows 8192 --dim 64 --rank 8`, which is not
+what the ablation builds. At that size the factorisation is small and reproducible no matter
+what, so the script returned STABLE and looked like a refutation. It was measuring a different
+object. The defaults now match the real configuration.
 
 Design notes that matter for the answer:
 
@@ -18,11 +29,10 @@ Design notes that matter for the answer:
     twice inside one process would test nothing -- the thread pool is already warm and the
     reduction order is fixed for the life of the process.
 
-  * `--threads 0` means "leave the default alone", i.e. the current unpinned behaviour, and
-    serves as the control. If the default is also stable, the hypothesis is wrong and the
-    cause lies elsewhere.
+  * `--threads 0` means "leave the default alone", i.e. the observed unpinned behaviour, and
+    serves as the control.
 
-Usage (run each setting twice, in separate processes, and compare the printed hashes):
+Usage (run each setting several times, in separate processes, and compare the printed hashes):
 
     python diagnose_tt_determinism.py --threads 0
     python diagnose_tt_determinism.py --threads 1
@@ -43,9 +53,20 @@ def main() -> int:
                                  formatter_class=argparse.RawDescriptionHelpFormatter)
     ap.add_argument("--threads", type=int, default=0,
                     help="BLAS thread count; 0 leaves the default (the control)")
-    ap.add_argument("--rows", type=int, default=8192)
-    ap.add_argument("--dim", type=int, default=64)
-    ap.add_argument("--rank", type=int, default=8)
+    # Defaults match what the ablation actually builds, not round numbers. The first version
+    # of this script defaulted to 8192 x 64 with rank 8 -- 512x fewer rows, a different
+    # embedding dimension and a different rank -- and at that size the factorisation is small
+    # enough to be reproducible regardless, so it returned STABLE and appeared to refute the
+    # hypothesis. Measured at the real size the answer is different in one respect and the
+    # same in another; see the module docstring. Defaults that do not match the experiment
+    # under test are worse than no defaults.
+    ap.add_argument("--rows", type=int, default=4193420,
+                    help="sparse_total_rows in the IEEE 118 run; reverse-engineered from "
+                         "dense embedding_bytes / (dim * 4)")
+    ap.add_argument("--dim", type=int, default=16)
+    ap.add_argument("--rank", type=int, default=32,
+                    help="config tt.rank; note rank > dim here, so the factorisation "
+                         "truncates hard")
     ap.add_argument("--seed", type=int, default=0)
     ap.add_argument("--repeats", type=int, default=3,
                     help="builds within this process, to separate within- from across-process")
