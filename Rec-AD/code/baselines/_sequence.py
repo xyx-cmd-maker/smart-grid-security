@@ -86,22 +86,30 @@ class SequenceDetectorBase(DetectorBase):
         # test works because it first projects the measurement onto col(H) and
         # looks only at what is left, which removes ~99% of the variation.
         #
-        # So the same projection is applied here, as a FIXED (non-learned)
-        # preprocessing layer, and every sequence baseline gets it. That keeps
-        # the architecture comparison fair -- what differs between LSTM, CNN
-        # and Transformer is still only the encoder -- while no longer asking
-        # them to rediscover a projection the physics already hands us.
-        self.projector_: Optional[torch.Tensor] = None
+        # The projection is held in a registered buffer and referenced ONLY through
+        # that buffer. An earlier version also kept a plain alias:
+        #
+        #     self.register_buffer("_proj", cpu_tensor)
+        #     self.projector_ = self._proj          # alias to the same object
+        #
+        # which is correct on CPU and silently wrong on GPU. `Module._apply` rebinds
+        # `self._proj` to a new CUDA tensor but leaves `self.projector_` pointing at the
+        # original CPU one, so every forward pass after `.to("cuda")` mixed a CUDA tensor
+        # with a CPU one and raised a device-mismatch error. The physics path is skipped
+        # when no Jacobian is supplied, so a GPU check that built the model without
+        # `data=` never reached this line and reported success.
         self.physics_channels = 0
         use_physics = bool(
             ((cfg.get("baselines", {}) or {}).get("sequence", {}) or {})
             .get("physics_features", True))
         self.physics_enabled = use_physics
+        # Registered unconditionally and left empty when unused, so `_proj` always exists
+        # and the guards below can test its size rather than testing for an attribute.
+        self.register_buffer("_proj", torch.zeros(0), persistent=False)
         if self.uses_window and h_matrix is not None and use_physics:
             h = np.asarray(h_matrix, dtype=np.float64)
             proj = h @ np.linalg.pinv(h)
-            self.register_buffer("_proj", torch.from_numpy(proj).float())
-            self.projector_ = self._proj
+            self._proj = torch.from_numpy(proj).float()
             # [z_t , residual_t , innovation_t]  -> 3 x m channels
             self.physics_channels = 3
 
@@ -160,10 +168,10 @@ class SequenceDetectorBase(DetectorBase):
             return batch["node_feat"]
 
         win = batch["window"]                                  # (B, L, m)
-        if self.physics_channels == 0 or self.projector_ is None:
+        if self.physics_channels == 0 or self._proj.numel() == 0:
             return win
 
-        proj = self.projector_.to(win.dtype)
+        proj = self._proj.to(win.dtype)
         residual = win - win @ proj.T                          # (B, L, m)
         pred = win[:, :-1, :] @ proj.T
         innovation = torch.cat(
@@ -183,7 +191,7 @@ class SequenceDetectorBase(DetectorBase):
         byte-identical to before this change.
         """
         if (self.normalise_channels and self.physics_channels > 0
-                and self.projector_ is not None):
+                and self._proj.numel() > 0):
             total_sum = None
             total_sq = None
             count = 0

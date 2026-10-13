@@ -31,13 +31,22 @@ sys.path.insert(0, str(HERE))
 
 from data.contract import load_contract                     # noqa: E402
 from data.dataset import build_spec, build_loaders          # noqa: E402
-from recad.common import load_config                        # noqa: E402
+from recad.common import load_config, set_seed                # noqa: E402
 from baselines.registry import build_detector               # noqa: E402
 
 DEV = "cuda"
 d = load_contract(HERE / "data_cache/ieee118.npz")
 spec = build_spec(d)
 cfg = load_config(None)
+
+# Seed before ANY model is constructed. Without this the script draws fresh initial weights
+# every run and its gradient norms move by an order of magnitude between invocations -- CNN
+# reported 476.2 and 45.6 on two consecutive runs, LSTM 256.2 and 27.3. One unseeded run
+# landed on a saturated initialisation and printed grad_norm=0.0000, which looks exactly like
+# a dead backward pass and is not one. A verification whose verdict changes with the draw
+# cannot serve as a gate. This is the same rule the project already carries for experiments
+# (AGENTS.md section 4.9): seed before building, here applied to the checker itself.
+set_seed(0)
 
 print("=" * 84)
 print("GPU training path verification (bypasses the tier machinery on purpose)")
@@ -71,17 +80,27 @@ except Exception as exc:                            # noqa: BLE001
 
 # ---- 2..6 one torch model at a time ---------------------------------------
 results = {}
-for name in ("CNN", "LSTM"):
+for name in ("CNN", "LSTM", "Transformer"):
     print()
     print(f"  ---- {name} ----")
     try:
-        model = build_detector(name, spec, cfg)
+        # `data` must be passed: the sequence baselines build their fixed residual
+        # projection from the contract's Jacobian, and without it they silently skip the
+        # physics path. This check previously omitted it, so it exercised only the
+        # branch that needs no Jacobian -- and reported success while the branch that
+        # does need one was broken on GPU. See the note in baselines/_sequence.py.
+        model = build_detector(name, spec, cfg, d)
     except Exception as exc:                        # noqa: BLE001
         print(f"    !! build failed: {type(exc).__name__}: {exc}")
         results[name] = False
         continue
 
-    print(f"    parameters {sum(p.numel() for p in model.parameters()):,}")
+    n_phys = getattr(model, "physics_channels", None)
+    print(f"    parameters {sum(p.numel() for p in model.parameters()):,}"
+          + (f"  physics_channels={n_phys}" if n_phys is not None else ""))
+    if n_phys == 0:
+        print("    !! physics_channels is 0: the Jacobian was not used, so this does NOT "
+              "exercise the projection path")
 
     try:
         model = model.to(DEV)
