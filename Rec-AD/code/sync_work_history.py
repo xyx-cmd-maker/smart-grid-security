@@ -20,8 +20,34 @@ PATTERNS = ["AGENTS*.md", "研究进度.md", "slots.json", "revision*.md",
             "cover-letter.md", "response-letter.md", "组会_internal/*.md"]
 
 
+def staleness() -> tuple[int, int, float]:
+    """Count files newer than their snapshot copy, and the worst lag in seconds."""
+    stale, total, worst = 0, 0, 0.0
+    for pat in PATTERNS:
+        for src in sorted(ROOT.glob(pat)):
+            if not src.is_file():
+                continue
+            total += 1
+            dst = DEST / src.name
+            if not dst.exists():
+                stale += 1
+                worst = max(worst, float("inf"))
+                continue
+            lag = src.stat().st_mtime - dst.stat().st_mtime
+            if lag > 1.0:
+                stale += 1
+                worst = max(worst, lag)
+    return stale, total, worst
+
+
 def main() -> int:
     DEST.mkdir(parents=True, exist_ok=True)
+    stale, total, worst = staleness()
+    if stale == 0:
+        print(f"  snapshot is current ({total} files, none changed since the last sync)")
+    else:
+        lag = "never synced" if worst == float("inf") else f"worst lag {worst/3600:.1f} h"
+        print(f"  snapshot is STALE: {stale} of {total} files changed ({lag})")
     n = 0
     for pat in PATTERNS:
         for src in sorted(ROOT.glob(pat)):
