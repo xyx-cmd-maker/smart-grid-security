@@ -47,3 +47,7 @@
 # Local backups written during editing.
 **/*.bak*
 **/*_backup_*/
+
+# Internal meeting material: carries tier=local numbers and a record of unimplemented
+# components. Held back for the same reason results are, and for one more.
+/Rec-AD/组会_internal/
