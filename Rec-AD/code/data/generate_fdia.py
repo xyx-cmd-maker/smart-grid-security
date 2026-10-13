@@ -372,7 +372,8 @@ def make_attack_vectors(h: np.ndarray,
                         noise_sigma: float = 0.05,
                         redist_frac: float = 0.10,
                         redist_bias_sigma: float = 0.30,
-                        window: int = 1) -> np.ndarray:
+                        window: int = 1,
+                        stealthy_resample: bool = False) -> np.ndarray:
     """Construct the injection for each sample according to the threat model.
 
     Returns an array shaped (n_samples, window, m): the injection applied at
@@ -391,6 +392,16 @@ def make_attack_vectors(h: np.ndarray,
                         old constant injection; with window>1 the jump is
                         inconsistent with the state dynamics and becomes
                         detectable temporally.
+
+                        With ``stealthy_resample=True`` the step is replaced by a
+                        fresh draw of c at every timestep. The apparent state
+                        then moves continuously rather than jumping, and each
+                        step's displacement can lie inside what the random-walk
+                        dynamics permit -- which is what benign traffic does.
+                        This is the control that separates "the temporal channel
+                        detects stealthiness" from "it detects a step", and it
+                        exists because a reviewer who knows the stealth-attack
+                        literature will ask precisely that.
       * load-redist   : stealthy plus a sparse noise-scaled departure -> between
 
     CRITICAL: `c @ h.T` amplifies the state perturbation by ||H||, which for
@@ -420,16 +431,25 @@ def make_attack_vectors(h: np.ndarray,
     mask = attack_type == ATTACK_STEALTHY
     if mask.any():
         k = int(mask.sum())
-        c = rng.normal(0.0, 1.0, size=(k, n_state))
-        raw = np.broadcast_to((c @ h.T)[:, None, :], (k, window, m)).copy()
-        raw = normalise(raw)
-        # Apply as a step: silent until t0, then held. The apparent state jumps
-        # at t0 by an amount that the dynamics do not allow.
-        if window > 1:
-            t0 = rng.integers(1, window, size=k)
-            steps = (np.arange(window)[None, :] >= t0[:, None])
-            raw = raw * steps[:, :, None]
-        a[mask] = raw
+        if stealthy_resample:
+            # Control condition: a fresh c at every timestep. The apparent state
+            # drifts rather than jumping, so the temporal signature that the step
+            # condition provides is absent by construction. Same normalisation as
+            # below, so the two conditions differ only in the time structure of c.
+            c_rt = rng.normal(0.0, 1.0, size=(k, window, n_state))
+            raw = np.einsum("ktn,nm->ktm", c_rt, h.T)
+            a[mask] = normalise(raw)
+        else:
+            c = rng.normal(0.0, 1.0, size=(k, n_state))
+            raw = np.broadcast_to((c @ h.T)[:, None, :], (k, window, m)).copy()
+            raw = normalise(raw)
+            # Apply as a step: silent until t0, then held. The apparent state
+            # jumps at t0 by an amount that the dynamics do not allow.
+            if window > 1:
+                t0 = rng.integers(1, window, size=k)
+                steps = (np.arange(window)[None, :] >= t0[:, None])
+                raw = raw * steps[:, :, None]
+            a[mask] = raw
 
     mask = attack_type == ATTACK_LOAD_REDIST
     if mask.any():
@@ -567,6 +587,7 @@ def generate(case: str,
              attack_scale: float = 1.5,
              redist_frac: float = 0.10,
              redist_bias_sigma: float = 1.2,
+             stealthy_resample: bool = False,
              benign_fraction: float = 0.5,
              n_time_windows: int = 256,
              n_bins: int = 32,
@@ -605,6 +626,7 @@ def generate(case: str,
                                     noise_sigma=noise_sigma,
                                     redist_frac=redist_frac,
                                     redist_bias_sigma=redist_bias_sigma,
+                                    stealthy_resample=stealthy_resample,
                                     window=window)
     window_arr = window_arr + injection
     # `dense` stays the CURRENT snapshot so every existing single-snapshot
@@ -635,7 +657,10 @@ def generate(case: str,
         "attack_scale": attack_scale,
         "redist_frac": redist_frac,
         "redist_bias_sigma": redist_bias_sigma,
-        "attack_model": "random outside col(H); stealthy a=Hc; "
+        "stealthy_resample": bool(stealthy_resample),
+        "attack_model": ("random outside col(H); stealthy a=Hc per-timestep resampled; "
+                         if stealthy_resample else
+                         "random outside col(H); stealthy a=Hc; ") +
                         "load-redistribution a=Hc + sparse noise-scaled bias",
         "embedding_dim": embedding_dim,
         "sparse_columns": sparse_column_names(n_bin_cross),
@@ -732,6 +757,12 @@ def parse_args() -> argparse.Namespace:
                    help="per-step, per-state-dimension std of the random walk. "
                         "Controls how fast the true state is allowed to move; "
                         "the stealthy step must exceed it to be visible")
+    p.add_argument("--stealthy-resample", action="store_true",
+                   help="control condition: draw c independently at every timestep "
+                        "instead of holding it constant after the step. The attack stays "
+                        "inside col(H) either way, so the two conditions differ only in "
+                        "the time structure of the injection. Use it to separate 'the "
+                        "temporal channel detects stealthiness' from 'it detects a step'.")
     p.add_argument("--seed", type=int, default=0)
     p.add_argument("--no-pandapower", action="store_true",
                    help="force the synthetic topology even if pandapower exists")
@@ -772,6 +803,7 @@ def main() -> int:
         n_bins=args.bins, n_bin_cross=args.bin_cross,
         n_time_windows=args.time_buckets,
         window=args.window, state_step_sigma=args.state_step_sigma,
+        stealthy_resample=args.stealthy_resample,
         embedding_dim=args.embedding_dim, seed=args.seed,
         allow_pandapower=not args.no_pandapower,
     )

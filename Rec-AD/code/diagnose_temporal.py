@@ -29,7 +29,9 @@ sys.path.insert(0, str(HERE))
 from data.contract import (ATTACK_LOAD_REDIST, ATTACK_NORMAL,   # noqa: E402
                            ATTACK_RANDOM, ATTACK_STEALTHY)
 
-P = HERE / "data_cache/temporal_smoke.npz"
+P = Path(sys.argv[1]) if len(sys.argv) > 1 else HERE / "data_cache/temporal_smoke.npz"
+if not P.is_absolute():
+    P = HERE / P
 with np.load(P, allow_pickle=False) as z:
     win = z["window"].astype(np.float64)
     h = z["h_matrix"].astype(np.float64)
