@@ -41,24 +41,42 @@ def staleness() -> tuple[int, int, float]:
 
 
 def main() -> int:
-    DEST.mkdir(parents=True, exist_ok=True)
     stale, total, worst = staleness()
     if stale == 0:
         print(f"  snapshot is current ({total} files, none changed since the last sync)")
     else:
         lag = "never synced" if worst == float("inf") else f"worst lag {worst/3600:.1f} h"
         print(f"  snapshot is STALE: {stale} of {total} files changed ({lag})")
-    n = 0
+
+    # Stage the copy, then swap. Clearing the destination first would leave nothing behind if
+    # the copy failed, and the snapshot's purpose is to survive exactly that kind of accident.
+    staging = DEST.parent / "snapshot.staging"
+    if staging.exists():
+        shutil.rmtree(staging)
+    staging.mkdir(parents=True)
+
+    wanted = []
     for pat in PATTERNS:
         for src in sorted(ROOT.glob(pat)):
             if src.is_file():
-                shutil.copy2(src, DEST / src.name)
-                n += 1
-    print(f"  copied {n} files to {DEST.relative_to(ROOT)}")
+                wanted.append(src)
+    for src in wanted:
+        shutil.copy2(src, staging / src.name)
+
+    copied = len(list(staging.iterdir()))
+    if copied != len(wanted):
+        print(f"  ABORT: staged {copied} of {len(wanted)} files; snapshot left untouched")
+        shutil.rmtree(staging, ignore_errors=True)
+        return 1
+
+    if DEST.exists():
+        shutil.rmtree(DEST)
+    staging.rename(DEST)
+    print(f"  swapped in {copied} files to {DEST.relative_to(ROOT)}")
     repo = ROOT / "work-history"
     for cmd in (["git", "add", "-A"],
                 ["git", "-c", "user.name=recad", "-c", "user.email=recad@local",
-                 "commit", "-q", "-m", f"snapshot {n} working files"]):
+                 "commit", "-q", "-m", f"snapshot {copied} working files"]):
         r = subprocess.run(cmd, cwd=str(repo), capture_output=True, text=True)
         if r.returncode != 0 and "nothing to commit" not in (r.stdout + r.stderr):
             print(f"  git {cmd[1]}: {(r.stdout + r.stderr).strip()[:120]}")
