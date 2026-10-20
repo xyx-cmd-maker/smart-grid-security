@@ -5,9 +5,12 @@
 # `pip install fitz` resolves to an unrelated package on PyPI; the distribution is `pymupdf`.
 # The same applies to `pynvml`, whose distribution is `nvidia-ml-py`.
 #
-# `torch` carries a local build tag whose CUDA version must match the driver. If the pinned
-# wheel is unavailable for a target machine, install the CUDA build that machine supports and
-# record that change alongside any numbers produced with it.
+# On `torch`: the pinned build carries a local CUDA tag, and a wheel built for a different CUDA
+# version will not install. Reproducing the numbers is the priority, so the pinned tag stays.
+# If a target machine cannot install it, the change is allowed but must be recorded: install the
+# CUDA build that machine supports, then put the resulting `torch.__version__` into the result
+# files produced there. A number whose file does not carry the version it was produced with is
+# not reproducible, which is the problem this pin exists to prevent.
 
 pymupdf==1.28.0
 numpy==2.4.6
