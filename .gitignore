@@ -51,3 +51,10 @@
 # Internal meeting material: carries tier=local numbers and a record of unimplemented
 # components. Held back for the same reason results are, and for one more.
 /Rec-AD/组会_internal/
+
+# Figures produced by the old plotting script, which read every JSON in code/results/
+# including the synthetic self-test files. Their numbers may come from that synthetic data
+# and the figure itself does not show it, so they must not be published next to the paper.
+# See Rec-AD/code/figures/DO-NOT-USE.md.
+!/Rec-AD/code/figures/DO-NOT-USE.md
+/Rec-AD/code/figures/fig1[1-7]_*
