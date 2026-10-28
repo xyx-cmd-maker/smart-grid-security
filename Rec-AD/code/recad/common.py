@@ -140,6 +140,17 @@ def describe_environment(tier_name: str = "local") -> Dict[str, Any]:
     try:
         import torch
         env["torch"] = torch.__version__
+        # The thread count changes the bits for every operation in this pipeline, so it is
+        # recorded with the results rather than left to whichever shell ran the job.
+        try:
+            env["torch_num_threads"] = int(torch.get_num_threads())
+            env["torch_num_interop_threads"] = int(torch.get_num_interop_threads())
+        except Exception:
+            env["torch_num_threads"] = None
+            env["torch_num_interop_threads"] = None
+        for var in ("OMP_NUM_THREADS", "MKL_NUM_THREADS"):
+            env[var.lower()] = os.environ.get(var)
+
         env["cuda_available"] = torch.cuda.is_available()
         if torch.cuda.is_available():
             env["cuda_version"] = torch.version.cuda
@@ -216,6 +227,7 @@ class ResultsWriter:
     name: str
     results_dir: Path
     rows: list = field(default_factory=list)
+    _env_cache: dict | None = field(default=None, repr=False)
 
     def __post_init__(self) -> None:
         self.results_dir = Path(self.results_dir)
@@ -229,6 +241,16 @@ class ResultsWriter:
         for r in rows:
             self.rows.append(dict(r))
         self.checkpoint()
+
+    def _env(self) -> dict:
+        """Environment block, computed once and reused across checkpoints.
+
+        A crashed run used to leave records with no record of the machine that produced them, because the
+        block was written only by the final write. Recording it here means any salvageable row is attributable.
+        """
+        if self._env_cache is None:
+            self._env_cache = describe_environment()
+        return self._env_cache
 
     def checkpoint(self) -> None:
         """Persist the rows accumulated so far, after every measurement.
@@ -254,6 +276,7 @@ class ResultsWriter:
                         "experiment": self.name,
                         "partial": True,
                         "n_records": len(self.rows),
+                        "environment": self._env(),
                         "records": self.rows,
                     },
                     indent=2,

@@ -28,6 +28,19 @@ import sys
 from pathlib import Path
 from typing import Any, Dict, List, Tuple
 
+# The thread count changes the low-order bits of every reduction in this pipeline, so it is set
+# here rather than left to the caller's environment. Without these lines a repeat comparison
+# cannot be attributed to anything, because the pool size would differ between runs.
+import os as _os
+_os.environ.setdefault("OMP_NUM_THREADS", "1")
+_os.environ.setdefault("MKL_NUM_THREADS", "1")
+import torch as _torch
+_torch.set_num_threads(1)
+try:
+    _torch.set_num_interop_threads(1)
+except Exception:
+    pass  # already initialised, or this build has no interop pool
+
 # Allow `python experiments/run_ablation.py` as well as `-m experiments.run_ablation`.
 # Running a script directly puts its own directory on sys.path, not the root.
 if __package__ in (None, ""):

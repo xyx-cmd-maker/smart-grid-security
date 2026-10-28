@@ -39,6 +39,14 @@ if str(CODE_ROOT) not in sys.path:
 import numpy as np
 import torch
 
+# The inter-op pool defaults to the core count and spins while one thread does the arithmetic. With 57 buses
+# and two epochs this alone made a run take over twenty minutes. Pin it before any parallel work begins.
+try:
+    torch.set_num_interop_threads(1)
+except Exception:  # noqa: BLE001
+    pass
+torch.set_num_threads(1)
+
 from data.contract import describe_contract, load_contract
 from data.dataset import build_loaders, build_spec
 from evaluate import evaluate_detector, format_results_table

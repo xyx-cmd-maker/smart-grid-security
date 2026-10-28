@@ -25,6 +25,19 @@ import time
 from pathlib import Path
 from typing import Any, Dict, List
 
+# The thread count changes the bits for every operation in this pipeline, so it is set here
+# rather than left to the caller's environment. The counts are recorded by
+# describe_environment, which every entry point calls.
+import os as _os
+_os.environ.setdefault("OMP_NUM_THREADS", "1")
+_os.environ.setdefault("MKL_NUM_THREADS", "1")
+import torch as _torch
+_torch.set_num_threads(1)
+try:
+    _torch.set_num_interop_threads(1)
+except Exception:
+    pass  # already initialised, or this build has no interop pool
+
 CODE_ROOT = Path(__file__).resolve().parents[1]
 if str(CODE_ROOT) not in sys.path:
     sys.path.insert(0, str(CODE_ROOT))

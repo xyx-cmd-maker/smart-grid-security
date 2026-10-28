@@ -199,6 +199,33 @@ def evaluate_detector(model,
     row.update(compute_metrics(y_test, scores_test, thr))
     row.update(per_attack_type_metrics(y_test, scores_test, at_test, thr))
 
+    # Per-family AUROC, computed once because AUROC is threshold-free.
+    # The headline auc pools all three attack families into one positive class, so a
+    # detector that separates one family perfectly and cannot separate another still
+    # receives a respectable value. BDD is exactly that case. These keys make the
+    # difference visible inside a single model, with no cross-model comparison and no
+    # operating-point matching. They sit outside per_attack_type_metrics, which is
+    # called twice and would otherwise emit two identical copies of every value.
+    _fam_codes = {
+        "random": ATTACK_RANDOM,
+        "stealthy": ATTACK_STEALTHY,
+        "load_redist": ATTACK_LOAD_REDIST,
+    }
+    _at_arr = np.asarray(at_test).ravel()
+    _sc_arr = np.asarray(scores_test).ravel()
+    _benign = _at_arr == ATTACK_NORMAL
+    for _fname, _fcode in _fam_codes.items():
+        _fsel = _at_arr == _fcode
+        if not _fsel.any() or not _benign.any():
+            continue
+        _keep = _benign | _fsel
+        _is_fam = _at_arr[_keep] == _fcode
+        if _is_fam.any() and (~_is_fam).any():
+            try:
+                row['auc_' + _fname] = float(_auc(_is_fam, _sc_arr[_keep]))
+            except ValueError:
+                row['auc_' + _fname] = float('nan')
+
     # Same per-family rates, but at a COMMON operating point.
     #
     # The rates above use this run's own calibrated threshold, so each model sits at a
@@ -220,6 +247,7 @@ def evaluate_detector(model,
                                            thr_common, prefix="unified"))
 
     row.update(model.extra_metrics(y_test, scores_test, at_test))
+    row["normalise_features"] = bool(getattr(model, "normalise_features", False))
     row["n_parameters"] = model.n_parameters()
     row["model_bytes"] = model.footprint_bytes()
     return row, scores_val, scores_test, y_val, y_test

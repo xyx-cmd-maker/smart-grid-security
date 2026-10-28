@@ -58,6 +58,9 @@ class AutoencoderDetector(FlatFeatureDetector):
         lr = float(cfg.get("lr", 1e-3))
         device = kwargs.get("device") or torch.device("cpu")
         self.to(device)
+        # Invoked after the device move so the pass runs where training runs and the buffers it
+        # writes are already on that device. Still before any gradient step, which is the point.
+        self._estimate_feature_statistics(train_loader)
 
         opt = torch.optim.Adam(self.parameters(), lr=lr,
                                weight_decay=float(cfg.get("weight_decay", 0.0)))
@@ -90,6 +93,9 @@ class AutoencoderDetector(FlatFeatureDetector):
                 n_batches += 1
 
             mean_loss = total / max(n_batches, 1)
+            if __import__("os").environ.get("_DSH_EPOCH_MARKERS"):
+                print(f"EPOCH-DONE {epoch} loss={mean_loss:.6f}", flush=True)
+                __import__("sys").stdout.flush()
             history["epochs"].append(epoch)
             history["train_loss"].append(mean_loss)
 
@@ -150,7 +156,7 @@ class AutoencoderDetector(FlatFeatureDetector):
             x = self.features(sub).to(device)
             recon = self.decoder(self.encoder(x))
             errs.append(((recon - x) ** 2).mean(dim=1).cpu().numpy())
-            labels.append(batch["label"].numpy())
+            labels.append(batch["label"].cpu().numpy())
         err = np.concatenate(errs) / max(self._err_scale, 1e-12)
         y = np.concatenate(labels).astype(int)
         if len(np.unique(y)) < 2:

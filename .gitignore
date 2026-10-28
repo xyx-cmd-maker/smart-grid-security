@@ -58,3 +58,7 @@
 # See Rec-AD/code/figures/DO-NOT-USE.md.
 !/Rec-AD/code/figures/DO-NOT-USE.md
 /Rec-AD/code/figures/fig1[1-7]_*
+
+# One-off helpers written while working. Not part of the artifact: each did a single job
+# (packing a deposit, running an ad-hoc check) and would only add noise to the source tree.
+/Rec-AD/code/_scratch/

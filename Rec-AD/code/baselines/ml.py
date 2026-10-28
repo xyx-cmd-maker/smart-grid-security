@@ -38,11 +38,11 @@ class _SklearnDetectorBase(DetectorBase):
     def _matrix(loader) -> tuple[np.ndarray, np.ndarray, np.ndarray]:
         xs, ys, ats = [], [], []
         for batch in loader:
-            dense = batch["dense"].numpy().astype(np.float64)
-            sparse = batch["sparse"].numpy().astype(np.float64)
+            dense = batch["dense"].cpu().numpy().astype(np.float64)
+            sparse = batch["sparse"].cpu().numpy().astype(np.float64)
             xs.append(np.concatenate([dense, sparse], axis=1))
-            ys.append(batch["label"].numpy())
-            ats.append(batch["attack_type"].numpy())
+            ys.append(batch["label"].cpu().numpy())
+            ats.append(batch["attack_type"].cpu().numpy())
         return np.concatenate(xs), np.concatenate(ys), np.concatenate(ats)
 
     def _prepare(self, X: np.ndarray) -> np.ndarray:
@@ -111,8 +111,8 @@ class _SklearnDetectorBase(DetectorBase):
         return self._raw_scores(self._prepare(X)).astype(np.float32)
 
     def forward(self, batch: Dict[str, torch.Tensor]) -> torch.Tensor:
-        dense = batch["dense"].numpy().astype(np.float64)
-        sparse = batch["sparse"].numpy().astype(np.float64)
+        dense = batch["dense"].cpu().numpy().astype(np.float64)
+        sparse = batch["sparse"].cpu().numpy().astype(np.float64)
         X = self._prepare(np.concatenate([dense, sparse], axis=1))
         # Rank by the margin, then squash to a bounded score. The sigmoid keeps
         # the value in a numerically safe range for the shared threshold logic

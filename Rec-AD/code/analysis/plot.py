@@ -62,6 +62,54 @@ def _records(blob: Dict[str, Any]) -> List[Dict[str, Any]]:
     return []
 
 
+def _all_records(blob: Dict[str, Any]) -> List[Dict[str, Any]]:
+    """Like `_records` but also accepts the `rows` key.
+
+    The experiment scripts write `records` or `summary`; the measurement scripts
+    write `rows`. Widening the shared reader to accept all three changed what
+    three other figures plotted, because they began to pick up measurement rows
+    they were never meant to see. So the wider reader is separate and only the
+    deployability figure, which needs resource measurements, uses it.
+    """
+    if not isinstance(blob, dict):
+        return []
+    for key in ("summary", "records", "rows"):
+        if key in blob and isinstance(blob[key], list):
+            return blob[key]
+    return []
+
+
+def _load_registry() -> Dict[str, str]:
+    """Map each detector to the result file the registry names as its source.
+
+    `slots.json` records, for every published number, which file it came from.
+    The deployability figure needs one number per detector from the detection
+    side, and several files carry that field with values at the false-alarm rate,
+    so picking by field name would draw a meaningless figure that looks like data.
+    The registry is the authority the manuscript uses, so the figure uses it too.
+
+    Returns an empty mapping when the registry is unavailable, which makes the
+    caller skip the figure rather than draw it from the wrong source.
+    """
+    path = Path(__file__).resolve().parents[2] / "slots.json"
+    if not path.exists():
+        return {}
+    try:
+        blob = json.loads(path.read_text(encoding="utf-8"))
+    except (json.JSONDecodeError, OSError):
+        return {}
+    base = blob.get("baselines", {})
+    out: Dict[str, str] = {}
+    for key, spec in base.items():
+        if not key.endswith(".stealthy") or not isinstance(spec, dict):
+            continue
+        det = key.split(".")[1]
+        src = str(spec.get("source") or "").strip()
+        if src:
+            out[det] = src
+    return out
+
+
 def _get(rec: Dict[str, Any], key: str) -> Optional[float]:
     """Read `key` as either a raw value or an aggregated `key_mean`."""
     if key in rec and isinstance(rec[key], (int, float)):
@@ -95,25 +143,62 @@ def fig_deployability(results: Dict[str, Dict[str, Any]],
     The envelope is drawn as a region, not a line: a method outside it cannot
     be deployed at a substation regardless of its accuracy.
     """
-    recs: List[Dict[str, Any]] = []
-    for name, blob in results.items():
-        if name.startswith("baselines"):
-            recs.extend(_records(blob))
-    recs = [r for r in recs if _get(r, "peak_vram_mb") is not None]
-    if not recs:
-        print("  deployability: no records with peak_vram_mb (needs a GPU run)")
+    # Two quantities per detector, from two different places, joined on the
+    # detector name.
+    #
+    # Memory comes from the measurement files, which name what they measured.
+    # Detection comes from the file the registry records as the source of that
+    # value. Picking a detection file by field name alone is wrong here: several
+    # files carry the field and the ones that do hold values at the false-alarm
+    # rate, because they are smoke tests and superseded runs. A figure drawn from
+    # those would look like data and mean nothing, so the registry decides.
+    mem: Dict[str, float] = {}
+    for blob in results.values():
+        for r in _all_records(blob):
+            n = r.get("detector") or r.get("model")
+            x = _get(r, "peak_mib")
+            if not n or x is None:
+                continue
+            # Only the inference protocol. The envelope file also holds
+            # training-scale rows at batch 256 and 4096 whose memory is roughly
+            # five times larger, and taking the first match let one of those
+            # stand in for an inference measurement.
+            batch = r.get("batch")
+            if isinstance(batch, (int, float)) and float(batch) != 1.0:
+                continue
+            mem.setdefault(str(n), float(x))
+
+    det: Dict[str, float] = {}
+    registry = _load_registry()
+    for det_name in registry:
+        src = registry[det_name]
+        blob = results.get(src)
+        if not isinstance(blob, dict):
+            continue
+        for r in _all_records(blob):
+            y = _get(r, "detect_rate_stealthy")
+            if y is not None:
+                det.setdefault(det_name, float(y))
+
+    if not mem or not det:
+        print(f"  deployability: memory for {len(mem)} methods, detection for {len(det)}")
         return
 
     fig, ax = plt.subplots(figsize=(8, 5.5))
     budget = budget or {}
     vram = float(budget.get("vram_gb", 8)) * 1024
 
-    for r in recs:
-        x = _get(r, "peak_vram_mb")
-        y = _get(r, "detect_rate_stealthy")
+    plotted = 0
+    xs: List[float] = []
+    for r in [{"detector": k, "peak_mib": v} for k, v in mem.items()]:
+        name = r["detector"]
+        x = r["peak_mib"]
+        y = det.get(name)
         if x is None or y is None:
             continue
-        label = r.get("model", "?")
+        plotted += 1
+        xs.append(float(x))
+        label = name
         fits = x <= vram
         ax.scatter(x, y, s=110, marker="o" if fits else "X",
                    color="#2a7f4f" if fits else "#b03030",
@@ -121,8 +206,12 @@ def fig_deployability(results: Dict[str, Dict[str, Any]],
         ax.annotate(label, (x, y), textcoords="offset points", xytext=(7, 5),
                     fontsize=8)
 
-    ax.axvspan(vram, ax.get_xlim()[1] if ax.get_xlim()[1] > vram else vram * 1.5,
-               color="#b03030", alpha=0.07)
+    # The measured values sit far inside the budget, so an axis that spans the
+    # budget flattens every point against the left edge and makes the envelope
+    # the subject rather than the comparison. Draw the measured range, and mark
+    # where the budget lies relative to it.
+    ax.set_xlim(0, max(vram, max(xs) * 1.15))
+    ax.axvspan(vram, ax.get_xlim()[1], color="#b03030", alpha=0.07)
     ax.axvline(vram, color="#b03030", linestyle="--", linewidth=1.2)
     ax.text(vram, ax.get_ylim()[1], "  substation envelope",
             color="#b03030", fontsize=9, va="top")

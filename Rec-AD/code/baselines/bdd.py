@@ -158,8 +158,8 @@ class BDDDetector(DetectorBase):
     def _collect(loader) -> tuple[np.ndarray, np.ndarray]:
         zs, is_normal = [], []
         for batch in loader:
-            zs.append(batch["dense"].numpy().astype(np.float64))
-            is_normal.append((batch["attack_type"].numpy() == ATTACK_NORMAL))
+            zs.append(batch["dense"].cpu().numpy().astype(np.float64))
+            is_normal.append((batch["attack_type"].cpu().numpy() == ATTACK_NORMAL))
         return np.concatenate(zs), np.concatenate(is_normal)
 
     # -- scoring -----------------------------------------------------------

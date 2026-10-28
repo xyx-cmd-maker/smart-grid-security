@@ -72,6 +72,20 @@ class FlatFeatureDetector(DetectorBase):
         if emb_dim is None:
             emb_dim = resolve_emb_dim(cfg)
         self.embedding = SparseEmbeddingFrontend(spec.sparse_cardinalities, emb_dim)
+        # Per-dimension standardisation of the assembled feature vector, the same procedure the
+        # sequence detectors apply to their channel blocks. Without it the dense block and the
+        # pooled embedding differ in scale by four orders of magnitude (see check_flat_scale.py),
+        # and the larger block dominates the first linear layer.
+        #
+        # DEFAULT FALSE ON PURPOSE: the reported autoencoder numbers were produced without
+        # this step, so a fresh clone must reproduce them. Enabling it moves that baseline
+        # from about 0.49 to 0.52 AUROC, which is a different result and must be reported.
+        self.normalise_features = bool(
+            ((cfg.get("baselines", {}) or {}).get("autoencoder", {}) or {})
+            .get("normalise_features", False))
+        self.register_buffer("_flat_mu", torch.zeros(0), persistent=False)
+        self.register_buffer("_flat_sd", torch.ones(0), persistent=False)
+
         self.in_dim = spec.num_dense + emb_dim
 
         # Optional residual input. See the module docstring of
@@ -102,10 +116,65 @@ class FlatFeatureDetector(DetectorBase):
         return dense - (dense @ P) @ P.T
 
     def features(self, batch: Dict[str, torch.Tensor]) -> torch.Tensor:
-        dense = batch["dense"]
+        # Both halves must sit on the module's device. The loader puts the batch on
+        # CPU; the tables and projections move with the model. Moving here keeps the
+        # lookup and the concatenation consistent without either side assuming.
+        dev = next(self.parameters()).device
+        dense = batch["dense"].to(dev)
         if self.input_mode == "residual":
             dense = self._to_residual(dense)
-        pooled = self.embedding(batch["sparse"])
+        pooled = self.embedding(batch["sparse"].to(dev))
+        out = torch.cat([dense, pooled], dim=1)
+        # Inert until `fit` has estimated the statistics; see __init__.
+        if self.normalise_features and self._flat_sd.numel() == out.shape[1]:
+            out = (out - self._flat_mu.to(out.dtype)) / self._flat_sd.to(out.dtype)
+        return out
+
+    def _estimate_feature_statistics(self, train_loader) -> None:
+        """Per-dimension mean and standard deviation on the TRAIN split.
+
+        One pass before any gradient step, so the transform is fixed preprocessing the
+        optimiser cannot game. Inert when normalisation is off.
+        """
+        if not self.normalise_features:
+            return
+        # Markers either side of the statistics pass, flushed so they survive a native crash.
+        # Their purpose is to separate "crash inside this pass" from "crash later" using evidence
+        # rather than timing.
+        import sys as _sys
+        if __import__('os').environ.get('_DSH_STATS_MARKERS'):
+            print('STATS-PASS-BEGIN', flush=True)
+            _sys.stdout.flush()
+        total_sum = None
+        total_sq = None
+        count = 0
+        with torch.no_grad():
+            for batch in train_loader:
+                f = self._raw_features(batch)
+                total_sum = f.sum(dim=0) if total_sum is None else total_sum + f.sum(dim=0)
+                total_sq = (f ** 2).sum(dim=0) if total_sq is None else total_sq + (f ** 2).sum(dim=0)
+                count += int(f.shape[0])
+        if count > 0 and total_sum is not None:
+            mean = total_sum / count
+            var = torch.clamp(total_sq / count - mean ** 2, min=1e-12)
+            self._flat_mu = mean.detach()
+            self._flat_sd = var.sqrt().detach().clamp_min(1e-6)
+        if __import__('os').environ.get('_DSH_STATS_MARKERS'):
+            print(f'STATS-PASS-END count={count}', flush=True)
+            _sys.stdout.flush()
+        # release the accumulators before training: on the largest system they are what the
+        # optimiser then has no room for
+        total_sum = None
+        total_sq = None
+        if torch.cuda.is_available():
+            torch.cuda.empty_cache()
+
+
+    def _raw_features(self, batch):
+        """The assembled vector before standardisation, used to estimate the statistics."""
+        dev = next(self.parameters()).device
+        dense = self._to_residual(batch["dense"].to(dev)) if self.input_mode == "residual" else batch["dense"].to(dev)
+        pooled = self.embedding(batch["sparse"].to(dev))
         return torch.cat([dense, pooled], dim=1)
 
     def extra_metrics(self, y_true, y_score, attack_type=None):

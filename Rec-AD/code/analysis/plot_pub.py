@@ -93,6 +93,10 @@ def fig_ablation(results, out):
     ax.set_xticklabels(order, rotation=28, ha="right")
     ax.set_ylabel("AUROC (pooled)")
     ax.set_xlabel("Component configuration")
+    # The caption names a chance reference, and the caption is right to: every bar here lies within
+    # about a hundredth of 0.5, so without the rule the reader cannot tell the scale. Drawn before the
+    # bars so that the bars occlude it, matching how the scaling panel draws its own.
+    ax.axhline(0.5, color=pubstyle.ROLE["neutral"], linestyle=":", linewidth=0.8, zorder=0)
     lo = min(m - s for m, s in zip(means, sds))
     ax.set_ylim(max(0.0, lo - 0.05), min(1.0, max(m + s for m, s in zip(means, sds)) + 0.03))
     ax.set_title(f"Component ablation, IEEE 118, n = 3 seeds")
@@ -152,7 +156,8 @@ def fig_scaling(results, out):
     axes[0].set_xticks(x)
     axes[0].set_xticklabels([str(b) for b in buses])
     axes[0].set_xlabel("Bus count")
-    axes[0].set_ylabel("Embedding compression ratio")
+    axes[0].set_ylabel("Embedding compression ratio\n(nominal sizing included)")
+    axes[0].set_ylim(0, max(comp) * 1.15 if comp else 1.0)
     axes[0].set_title("Compression is flat in grid size")
 
     axes[1].errorbar(x, auc, yerr=auc_sd, fmt="--s", capsize=2.5, linewidth=1.2,

@@ -37,7 +37,20 @@ MAP = [
 
 
 def digest(p: Path) -> str:
-    return hashlib.sha256(p.read_bytes()).hexdigest()
+    # Hash the rendered page rather than the file. A PDF carries a creation timestamp, so
+    # regenerating an unchanged figure changes the bytes and a byte hash always reports a
+    # difference. Comparing pixels makes the check mean "the same picture", which is what a
+    # reader sees.
+    try:
+        import fitz
+
+        with fitz.open(p) as doc:
+            digest = hashlib.sha256()
+            for page in doc:
+                digest.update(page.get_pixmap(dpi=110).samples)
+            return digest.hexdigest()
+    except Exception:
+        return hashlib.sha256(p.read_bytes()).hexdigest()
 
 
 bad = 0

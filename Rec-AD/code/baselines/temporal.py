@@ -142,8 +142,8 @@ class TemporalInnovationDetector(DetectorBase):
                     "batch has no `window`; the loader was built from a "
                     "contract generated without --window"
                 )
-            wins.append(batch["window"].numpy().astype(np.float64))
-            is_normal.append(batch["attack_type"].numpy() == ATTACK_NORMAL)
+            wins.append(batch["window"].cpu().numpy().astype(np.float64))
+            is_normal.append(batch["attack_type"].cpu().numpy() == ATTACK_NORMAL)
         return np.concatenate(wins), np.concatenate(is_normal)
 
     # -- scoring -----------------------------------------------------------

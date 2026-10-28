@@ -128,15 +128,43 @@ def apply_norm(data: Dict, stats: NormStats) -> Dict:
     equivalent and the stealth property is preserved.
     """
     out = dict(data)
-    out["dense"] = ((data["dense"] - stats.dense_mean) / stats.dense_std).astype(np.float32)
+
+    # Cast the statistics to float32 before the arithmetic. Subtracting a float64
+    # array from a float32 array promotes the result to float64, which doubles the
+    # size of every temporary; for the 118-bus window array that alone was 544 MiB
+    # per temporary and caused ArrayMemoryError. Dividing in place keeps the peak at
+    # one copy instead of two.
+    _dm = np.asarray(stats.dense_mean, dtype=np.float32)
+    _ds = np.asarray(stats.dense_std, dtype=np.float32)
+
+    _dense = np.array(data["dense"], dtype=np.float32, copy=True)
+    _dense -= _dm
+    _dense /= _ds
+    out["dense"] = _dense
+
     if data.get("node_feat") is not None and stats.node_mean is not None:
-        out["node_feat"] = (
-            (data["node_feat"] - stats.node_mean) / stats.node_std
-        ).astype(np.float32)
+        _nm = np.asarray(stats.node_mean, dtype=np.float32)
+        _ns = np.asarray(stats.node_std, dtype=np.float32)
+        _nf = np.array(data["node_feat"], dtype=np.float32, copy=True)
+        _nf -= _nm
+        _nf /= _ns
+        out["node_feat"] = _nf
+
     if data.get("window") is not None:
-        out["window"] = (
-            (data["window"] - stats.dense_mean) / stats.dense_std
-        ).astype(np.float32)
+        # The 300-bus window is 649 MiB at float32. Allocating a second array of that size is what
+        # killed two runs, so when the stored array is already float32 it is normalised in place.
+        # NOTE: this mutates the caller's array. Callers that need the raw window must copy first.
+        _raw = data["window"]
+        if _raw.dtype == np.float32:
+            _win = _raw
+        else:
+            _win = np.array(_raw, dtype=np.float32, copy=True)
+        _slab = max(1, int(2_000_000 / max(1, _win[0].size)))
+        for _i in range(0, _win.shape[0], _slab):
+            _j = min(_i + _slab, _win.shape[0])
+            _win[_i:_j] -= _dm
+            _win[_i:_j] /= _ds
+        out["window"] = _win
     if data.get("h_matrix") is not None:
         # Same diagonal as the measurements: H -> D H, with D = 1/sigma.
         # D acts on the MEASUREMENT axis, which is the ROW axis of H (m, n).
