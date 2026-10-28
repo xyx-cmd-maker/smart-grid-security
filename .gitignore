@@ -34,10 +34,138 @@
 /Rec-AD/code/data_cache/
 **/*.npz
 
-# Results are held back until the resource measurements are re-run on a named device. The
-# committed numbers are debug-tier, and publishing them next to a paper that reports
-# device-measured resources invites reading them as the paper's numbers.
-/Rec-AD/code/results/
+# Results: the 118 per-run records that back the paper's tables and figures are published,
+# enumerated one by one. The exclusion above existed because the committed numbers were
+# debug-tier and sat beside a paper reporting named-device resources; the paper now names the
+# device and these are the numbers it reports, so the reason has lapsed.
+#
+# The list is explicit rather than a pattern that re-permits the directory. A pattern would
+# fail open: the partial runs, the superseded batches, the synthetic self-test files and the
+# internal audit records that share this directory would be published without a decision.
+/Rec-AD/code/results/*
+# The wildcard above excludes the contents, not the directory. Excluding the directory itself
+# would stop git descending into it and every negation below would be dead, which is the
+# documented behaviour: a file cannot be re-included if a parent directory is excluded.
+!/Rec-AD/code/results/PUBLISHED-README.md
+!/Rec-AD/code/results/PUBLISHED-MANIFEST.sha256
+!/Rec-AD/code/results/M2-MATRIX.json
+!/Rec-AD/code/results/ablation_ieee118_local_abl3_topo.json
+!/Rec-AD/code/results/ablation_ieee118_local_abl3_topo_rep.json
+!/Rec-AD/code/results/ablation_ieee118_local_abl_real.json
+!/Rec-AD/code/results/ablation_ieee118_local_det1.json
+!/Rec-AD/code/results/ablation_ieee118_local_det2.json
+!/Rec-AD/code/results/ablation_ieee118_local_final_ablation.json
+!/Rec-AD/code/results/ablation_ieee57_local_s57a.json
+!/Rec-AD/code/results/ablation_ieee57_local_s57b.json
+!/Rec-AD/code/results/attack_scale_sweep.json
+!/Rec-AD/code/results/attack_scale_threshold.json
+!/Rec-AD/code/results/baselines_ieee118_compact_local_compact.json
+!/Rec-AD/code/results/baselines_ieee118_compact_t4_compact_ae_on.json
+!/Rec-AD/code/results/baselines_ieee118_local_abl_control.json
+!/Rec-AD/code/results/baselines_ieee118_local_dim64_BDD.json
+!/Rec-AD/code/results/baselines_ieee118_local_dim64_RF.json
+!/Rec-AD/code/results/baselines_ieee118_local_dim64_TemporalResidual.json
+!/Rec-AD/code/results/baselines_ieee118_local_fam118.json
+!/Rec-AD/code/results/baselines_ieee118_local_final_gat_ieee118.json
+!/Rec-AD/code/results/baselines_ieee118_local_final_ieee118.json
+!/Rec-AD/code/results/baselines_ieee118_local_fix_old.json
+!/Rec-AD/code/results/baselines_ieee118_local_fpr01_ieee118.json
+!/Rec-AD/code/results/baselines_ieee118_local_fpr02_ieee118.json
+!/Rec-AD/code/results/baselines_ieee118_local_fpr05_ieee118.json
+!/Rec-AD/code/results/baselines_ieee118_local_fpr10_ieee118.json
+!/Rec-AD/code/results/baselines_ieee118_local_iso2_GAT.json
+!/Rec-AD/code/results/baselines_ieee118_local_iso2_SVM.json
+!/Rec-AD/code/results/baselines_ieee118_local_iso_Autoencoder.json
+!/Rec-AD/code/results/baselines_ieee118_local_iso_BDD.json
+!/Rec-AD/code/results/baselines_ieee118_local_iso_GCN.json
+!/Rec-AD/code/results/baselines_ieee118_local_iso_RF.json
+!/Rec-AD/code/results/baselines_ieee118_local_iso_SVM.json
+!/Rec-AD/code/results/baselines_ieee118_local_iso_TemporalResidual.json
+!/Rec-AD/code/results/baselines_ieee118_local_nophysics_Transformer.json
+!/Rec-AD/code/results/baselines_ieee118_local_norm2_LSTM.json
+!/Rec-AD/code/results/baselines_ieee118_local_norm_CNN.json
+!/Rec-AD/code/results/baselines_ieee118_local_norm_SVM.json
+!/Rec-AD/code/results/baselines_ieee118_local_norm_Transformer.json
+!/Rec-AD/code/results/baselines_ieee118_local_normcheck.json
+!/Rec-AD/code/results/baselines_ieee118_local_stage1_old.json
+!/Rec-AD/code/results/baselines_ieee118_part0_local_part0.json
+!/Rec-AD/code/results/baselines_ieee118_part1_local_part1.json
+!/Rec-AD/code/results/baselines_ieee118_part2_local_part2.json
+!/Rec-AD/code/results/baselines_ieee118_part3_local_part3.json
+!/Rec-AD/code/results/baselines_ieee118_s07_local_s07tr_fpr001.json
+!/Rec-AD/code/results/baselines_ieee118_s07_local_s07tr_fpr010.json
+!/Rec-AD/code/results/baselines_ieee118_s08_local_s08tr_fpr001.json
+!/Rec-AD/code/results/baselines_ieee118_s08_local_s08tr_fpr010.json
+!/Rec-AD/code/results/baselines_ieee118_s09_local_s09tr_fpr001.json
+!/Rec-AD/code/results/baselines_ieee118_s09_local_s09tr_fpr002.json
+!/Rec-AD/code/results/baselines_ieee118_s09_local_s09tr_fpr005.json
+!/Rec-AD/code/results/baselines_ieee118_s09_local_s09tr_fpr010.json
+!/Rec-AD/code/results/baselines_ieee118_s10_local_s10tr_fpr001.json
+!/Rec-AD/code/results/baselines_ieee118_s10_local_s10tr_fpr010.json
+!/Rec-AD/code/results/baselines_ieee118_s12_local_s12tr_fpr001.json
+!/Rec-AD/code/results/baselines_ieee118_s12_local_s12tr_fpr010.json
+!/Rec-AD/code/results/baselines_ieee118_split7_t4_ae_split7_10.json
+!/Rec-AD/code/results/baselines_ieee118_split7_t4_split7.json
+!/Rec-AD/code/results/baselines_ieee118_split7_t4_split7_10.json
+!/Rec-AD/code/results/baselines_ieee118_split7_t4_split7t.json
+!/Rec-AD/code/results/baselines_ieee118_t4_ae_base10.json
+!/Rec-AD/code/results/baselines_ieee118_t4_ae_off10.json
+!/Rec-AD/code/results/baselines_ieee118_t4_ae_on10.json
+!/Rec-AD/code/results/baselines_ieee118_t4_base10.json
+!/Rec-AD/code/results/baselines_ieee118_t4_base_ctrl.json
+!/Rec-AD/code/results/baselines_ieee118_t4_base_tf.json
+!/Rec-AD/code/results/baselines_ieee118_t4_fam118_ae_on.json
+!/Rec-AD/code/results/baselines_ieee14_local.json
+!/Rec-AD/code/results/baselines_ieee14_local_fam14.json
+!/Rec-AD/code/results/baselines_ieee14_local_final_gat_ieee14.json
+!/Rec-AD/code/results/baselines_ieee14_local_final_ieee14.json
+!/Rec-AD/code/results/baselines_ieee14_local_verify2.json
+!/Rec-AD/code/results/baselines_ieee14_t4_s14_ae_on.json
+!/Rec-AD/code/results/baselines_ieee300_local_fam300.json
+!/Rec-AD/code/results/baselines_ieee300_local_fam300gcn.json
+!/Rec-AD/code/results/baselines_ieee300_local_fam300tr.json
+!/Rec-AD/code/results/baselines_ieee300_local_final_gat_ieee300.json
+!/Rec-AD/code/results/baselines_ieee300_local_gcn300new.json
+!/Rec-AD/code/results/baselines_ieee300_local_gcn300s2.json
+!/Rec-AD/code/results/baselines_ieee57_local_cap1ep57_fpr001.json
+!/Rec-AD/code/results/baselines_ieee57_local_cap1ep57_fpr002.json
+!/Rec-AD/code/results/baselines_ieee57_local_cap1ep57_fpr005.json
+!/Rec-AD/code/results/baselines_ieee57_local_cap1ep57_fpr010.json
+!/Rec-AD/code/results/baselines_ieee57_local_cap20ep57_fpr010.json
+!/Rec-AD/code/results/baselines_ieee57_local_cap2ep57_fpr001.json
+!/Rec-AD/code/results/baselines_ieee57_local_cap2ep57_fpr010.json
+!/Rec-AD/code/results/baselines_ieee57_local_cap3ep57_fpr001.json
+!/Rec-AD/code/results/baselines_ieee57_local_cap3ep57_fpr010.json
+!/Rec-AD/code/results/baselines_ieee57_local_fam57.json
+!/Rec-AD/code/results/baselines_ieee57_local_final_gat_ieee57.json
+!/Rec-AD/code/results/baselines_ieee57_local_final_ieee57.json
+!/Rec-AD/code/results/baselines_ieee57_t4_s57_ae_on.json
+!/Rec-AD/code/results/baselines_stage1_local_calib_bdd.json
+!/Rec-AD/code/results/baselines_stage1_local_calib_rf.json
+!/Rec-AD/code/results/baselines_stage1_local_fix_new.json
+!/Rec-AD/code/results/baselines_stage1_local_stage1_new.json
+!/Rec-AD/code/results/baselines_stage1_local_thrfix.json
+!/Rec-AD/code/results/end_to_end_segments.json
+!/Rec-AD/code/results/envelope_binding.json
+!/Rec-AD/code/results/envelope_binding_run2.json
+!/Rec-AD/code/results/f2_cliff.json
+!/Rec-AD/code/results/fedavg_gen118_t4.json
+!/Rec-AD/code/results/fedavg_ieee118_local_norm_fedavg2.json
+!/Rec-AD/code/results/h_perturbation.json
+!/Rec-AD/code/results/inference_vram.json
+!/Rec-AD/code/results/leakage_probe.json
+!/Rec-AD/code/results/lr_bidir.json
+!/Rec-AD/code/results/power_latency.json
+!/Rec-AD/code/results/recad_inference.json
+!/Rec-AD/code/results/reorder_mechanism_ieee118.json
+!/Rec-AD/code/results/scaling_local_sc1.json
+!/Rec-AD/code/results/scaling_local_v2.json
+!/Rec-AD/code/results/scaling_local_v3.json
+!/Rec-AD/code/results/stealthy_vs_fpr_overlap.json
+!/Rec-AD/code/results/stealthy_vs_fpr_test.json
+!/Rec-AD/code/results/table2_rows.json
+!/Rec-AD/code/results/table3_intervals.json
+!/Rec-AD/code/results/tost_equivalence.json
 
 # Virtual environments: several GB of CUDA runtime.
 **/.venv*/

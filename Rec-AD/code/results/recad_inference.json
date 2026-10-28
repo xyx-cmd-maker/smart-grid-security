@@ -1,0 +1,74 @@
+{
+  "device": "NVIDIA GeForce RTX 5060 Laptop GPU",
+  "envelope": {
+    "vram_mib": 8192.0,
+    "latency_ms": 500.0
+  },
+  "protocol": "batch=1, warmup=50, measure=500, forward only",
+  "tier": "local",
+  "publishable": false,
+  "fills": "deployability.recad_vram (magnitude only; tier=local is not publishable)",
+  "note": "Same protocol as measure_power_latency.py so the numbers are comparable to the baseline rows. AGENTS.md 4.6 restricts reported resource numbers to t4/rtx2060/jetson, so these cannot go into the manuscript as they stand.",
+  "rows": [
+    {
+      "cell": "Rec-AD full (TT+reorder+pipeline)",
+      "flags": {
+        "use_eff_tt": true,
+        "use_reorder": true,
+        "use_pipeline": true
+      },
+      "p50_ms": 3.906,
+      "p95_ms": 5.315,
+      "p99_ms": 7.044,
+      "peak_mib": 19.3,
+      "compression_ratio": 150.32334384858044,
+      "embedding_bytes": 1785344.0,
+      "verdict": "fits"
+    },
+    {
+      "cell": "Rec-AD no-TT (reorder+pipeline)",
+      "flags": {
+        "use_eff_tt": false,
+        "use_reorder": true,
+        "use_pipeline": true
+      },
+      "p50_ms": 0.481,
+      "p95_ms": 0.819,
+      "p99_ms": 1.09,
+      "peak_mib": 273.4,
+      "compression_ratio": 1.0,
+      "embedding_bytes": 268378880.0,
+      "verdict": "fits"
+    },
+    {
+      "cell": "Rec-AD TT only",
+      "flags": {
+        "use_eff_tt": true,
+        "use_reorder": false,
+        "use_pipeline": false
+      },
+      "p50_ms": 3.836,
+      "p95_ms": 5.164,
+      "p99_ms": 6.253,
+      "peak_mib": 20.0,
+      "compression_ratio": 150.32334384858044,
+      "embedding_bytes": 1785344.0,
+      "verdict": "fits"
+    },
+    {
+      "cell": "Rec-AD none",
+      "flags": {
+        "use_eff_tt": false,
+        "use_reorder": false,
+        "use_pipeline": false
+      },
+      "p50_ms": 0.449,
+      "p95_ms": 0.805,
+      "p99_ms": 1.027,
+      "peak_mib": 273.4,
+      "compression_ratio": 1.0,
+      "embedding_bytes": 268378880.0,
+      "verdict": "fits"
+    }
+  ]
+}

@@ -1,0 +1,518 @@
+{
+  "multiplier": 4.302653,
+  "df": 2,
+  "note": "t interval on 3 seeds",
+  "rows": [
+    {
+      "detector": "BDD",
+      "cells": {
+        "auc": {
+          "mean": 0.8168,
+          "sd": 0.0,
+          "n": 3,
+          "lo": null,
+          "hi": null
+        },
+        "random": {
+          "mean": 1.0,
+          "sd": 0.0,
+          "n": 3,
+          "lo": null,
+          "hi": null
+        },
+        "stealthy": {
+          "mean": 0.0114,
+          "sd": 0.0,
+          "n": 3,
+          "lo": null,
+          "hi": null
+        },
+        "redist": {
+          "mean": 0.9187,
+          "sd": 0.0,
+          "n": 3,
+          "lo": null,
+          "hi": null
+        },
+        "fpr": {
+          "mean": 0.0107,
+          "sd": 0.0,
+          "n": 3,
+          "lo": null,
+          "hi": null
+        }
+      }
+    },
+    {
+      "detector": "TemporalResidual",
+      "cells": {
+        "auc": {
+          "mean": 0.9874,
+          "sd": 0.0,
+          "n": 3,
+          "lo": null,
+          "hi": null
+        },
+        "random": {
+          "mean": 1.0,
+          "sd": 0.0,
+          "n": 3,
+          "lo": null,
+          "hi": null
+        },
+        "stealthy": {
+          "mean": 0.9581,
+          "sd": 0.0,
+          "n": 3,
+          "lo": null,
+          "hi": null
+        },
+        "redist": {
+          "mean": 0.9946,
+          "sd": 0.0,
+          "n": 3,
+          "lo": null,
+          "hi": null
+        },
+        "fpr": {
+          "mean": 0.021,
+          "sd": 0.0,
+          "n": 3,
+          "lo": null,
+          "hi": null
+        }
+      }
+    },
+    {
+      "detector": "RF",
+      "cells": {
+        "auc": {
+          "mean": 0.4953,
+          "sd": 0.0133,
+          "n": 3,
+          "lo": 0.4623,
+          "hi": 0.5283,
+          "half_width": 0.033,
+          "relative": 0.067,
+          "source": "baselines_ieee118_local_dim64_RF"
+        },
+        "random": {
+          "mean": 0.0114,
+          "sd": 0.0021,
+          "n": 3,
+          "lo": 0.0062,
+          "hi": 0.0166,
+          "half_width": 0.0052,
+          "relative": 0.458,
+          "source": "baselines_ieee118_local_dim64_RF"
+        },
+        "stealthy": {
+          "mean": 0.0093,
+          "sd": 0.0019,
+          "n": 3,
+          "lo": 0.0046,
+          "hi": 0.014,
+          "half_width": 0.0047,
+          "relative": 0.508,
+          "source": "baselines_ieee118_local_dim64_RF"
+        },
+        "redist": {
+          "mean": 0.0126,
+          "sd": 0.0034,
+          "n": 3,
+          "lo": 0.0042,
+          "hi": 0.021,
+          "half_width": 0.0084,
+          "relative": 0.67,
+          "source": "baselines_ieee118_local_dim64_RF"
+        },
+        "fpr": {
+          "mean": 0.0103,
+          "sd": 0.0036,
+          "n": 3,
+          "lo": 0.0014,
+          "hi": 0.0192,
+          "half_width": 0.0089,
+          "relative": 0.868,
+          "source": "baselines_ieee118_local_dim64_RF"
+        }
+      }
+    },
+    {
+      "detector": "SVM",
+      "cells": {
+        "auc": {
+          "mean": 0.5015,
+          "sd": 0.008,
+          "n": 3,
+          "lo": 0.4816,
+          "hi": 0.5214,
+          "half_width": 0.0199,
+          "relative": 0.04,
+          "source": "baselines_ieee118_local_iso2_SVM"
+        },
+        "random": {
+          "mean": 0.01,
+          "sd": 0.0028,
+          "n": 3,
+          "lo": 0.003,
+          "hi": 0.017,
+          "half_width": 0.007,
+          "relative": 0.696,
+          "source": "baselines_ieee118_local_iso2_SVM"
+        },
+        "stealthy": {
+          "mean": 0.0157,
+          "sd": 0.0064,
+          "n": 3,
+          "lo": 0.0,
+          "hi": 0.0316,
+          "half_width": 0.0159,
+          "relative": 1.013,
+          "source": "baselines_ieee118_local_iso2_SVM"
+        },
+        "redist": {
+          "mean": 0.0108,
+          "sd": 0.0082,
+          "n": 3,
+          "lo": 0.0,
+          "hi": 0.0312,
+          "half_width": 0.0204,
+          "relative": 1.886,
+          "source": "baselines_ieee118_local_iso2_SVM"
+        },
+        "fpr": {
+          "mean": 0.0129,
+          "sd": 0.0036,
+          "n": 3,
+          "lo": 0.004,
+          "hi": 0.0218,
+          "half_width": 0.0089,
+          "relative": 0.693,
+          "source": "baselines_ieee118_local_iso2_SVM"
+        }
+      }
+    },
+    {
+      "detector": "Autoencoder",
+      "cells": {
+        "auc": {
+          "mean": 0.4961,
+          "sd": 0.0166,
+          "n": 3,
+          "lo": 0.4549,
+          "hi": 0.5373,
+          "half_width": 0.0412,
+          "relative": 0.083,
+          "source": "baselines_ieee118_local_iso_Autoencoder"
+        },
+        "random": {
+          "mean": 0.015,
+          "sd": 0.0024,
+          "n": 3,
+          "lo": 0.009,
+          "hi": 0.021,
+          "half_width": 0.006,
+          "relative": 0.397,
+          "source": "baselines_ieee118_local_iso_Autoencoder"
+        },
+        "stealthy": {
+          "mean": 0.011,
+          "sd": 0.0059,
+          "n": 3,
+          "lo": 0.0,
+          "hi": 0.0257,
+          "half_width": 0.0147,
+          "relative": 1.332,
+          "source": "baselines_ieee118_local_iso_Autoencoder"
+        },
+        "redist": {
+          "mean": 0.0095,
+          "sd": 0.0036,
+          "n": 3,
+          "lo": 0.0006,
+          "hi": 0.0184,
+          "half_width": 0.0089,
+          "relative": 0.941,
+          "source": "baselines_ieee118_local_iso_Autoencoder"
+        },
+        "fpr": {
+          "mean": 0.0134,
+          "sd": 0.0027,
+          "n": 3,
+          "lo": 0.0067,
+          "hi": 0.0201,
+          "half_width": 0.0067,
+          "relative": 0.501,
+          "source": "baselines_ieee118_local_iso_Autoencoder"
+        }
+      }
+    },
+    {
+      "detector": "GCN",
+      "cells": {
+        "auc": {
+          "mean": 0.508,
+          "sd": 0.0067,
+          "n": 3,
+          "lo": 0.4914,
+          "hi": 0.5246,
+          "half_width": 0.0166,
+          "relative": 0.033,
+          "source": "baselines_ieee118_local_iso_GCN"
+        },
+        "random": {
+          "mean": 0.0123,
+          "sd": 0.0049,
+          "n": 3,
+          "lo": 0.0001,
+          "hi": 0.0245,
+          "half_width": 0.0122,
+          "relative": 0.99,
+          "source": "baselines_ieee118_local_iso_GCN"
+        },
+        "stealthy": {
+          "mean": 0.0068,
+          "sd": 0.0041,
+          "n": 3,
+          "lo": 0.0,
+          "hi": 0.017,
+          "half_width": 0.0102,
+          "relative": 1.498,
+          "source": "baselines_ieee118_local_iso_GCN"
+        },
+        "redist": {
+          "mean": 0.0081,
+          "sd": 0.0027,
+          "n": 3,
+          "lo": 0.0014,
+          "hi": 0.0148,
+          "half_width": 0.0067,
+          "relative": 0.828,
+          "source": "baselines_ieee118_local_iso_GCN"
+        },
+        "fpr": {
+          "mean": 0.011,
+          "sd": 0.0013,
+          "n": 3,
+          "lo": 0.0078,
+          "hi": 0.0142,
+          "half_width": 0.0032,
+          "relative": 0.294,
+          "source": "baselines_ieee118_local_iso_GCN"
+        }
+      }
+    },
+    {
+      "detector": "GAT",
+      "cells": {
+        "auc": {
+          "mean": 0.5005,
+          "sd": 0.0118,
+          "n": 3,
+          "lo": 0.4712,
+          "hi": 0.5298,
+          "half_width": 0.0293,
+          "relative": 0.059,
+          "source": "baselines_ieee118_local_iso2_GAT"
+        },
+        "random": {
+          "mean": 0.01,
+          "sd": 0.0055,
+          "n": 3,
+          "lo": 0.0,
+          "hi": 0.0237,
+          "half_width": 0.0137,
+          "relative": 1.366,
+          "source": "baselines_ieee118_local_iso2_GAT"
+        },
+        "stealthy": {
+          "mean": 0.0123,
+          "sd": 0.0045,
+          "n": 3,
+          "lo": 0.0011,
+          "hi": 0.0235,
+          "half_width": 0.0112,
+          "relative": 0.909,
+          "source": "baselines_ieee118_local_iso2_GAT"
+        },
+        "redist": {
+          "mean": 0.0117,
+          "sd": 0.0021,
+          "n": 3,
+          "lo": 0.0065,
+          "hi": 0.0169,
+          "half_width": 0.0052,
+          "relative": 0.446,
+          "source": "baselines_ieee118_local_iso2_GAT"
+        },
+        "fpr": {
+          "mean": 0.0111,
+          "sd": 0.0024,
+          "n": 3,
+          "lo": 0.0051,
+          "hi": 0.0171,
+          "half_width": 0.006,
+          "relative": 0.537,
+          "source": "baselines_ieee118_local_iso2_GAT"
+        }
+      }
+    },
+    {
+      "detector": "CNN",
+      "cells": {
+        "auc": {
+          "mean": 0.8654,
+          "sd": 0.0039,
+          "n": 3,
+          "lo": 0.8557,
+          "hi": 0.8751,
+          "half_width": 0.0097,
+          "relative": 0.011,
+          "source": "baselines_ieee118_local_norm_CNN"
+        },
+        "random": {
+          "mean": 1.0,
+          "sd": 0.0,
+          "n": 3,
+          "lo": null,
+          "hi": null
+        },
+        "stealthy": {
+          "mean": 0.1207,
+          "sd": 0.0296,
+          "n": 3,
+          "lo": 0.0472,
+          "hi": 0.1942,
+          "half_width": 0.0735,
+          "relative": 0.609,
+          "source": "baselines_ieee118_local_norm_CNN"
+        },
+        "redist": {
+          "mean": 0.304,
+          "sd": 0.0469,
+          "n": 3,
+          "lo": 0.1875,
+          "hi": 0.4205,
+          "half_width": 0.1165,
+          "relative": 0.383,
+          "source": "baselines_ieee118_local_norm_CNN"
+        },
+        "fpr": {
+          "mean": 0.0108,
+          "sd": 0.0037,
+          "n": 3,
+          "lo": 0.0016,
+          "hi": 0.02,
+          "half_width": 0.0092,
+          "relative": 0.851,
+          "source": "baselines_ieee118_local_norm_CNN"
+        }
+      }
+    },
+    {
+      "detector": "LSTM",
+      "cells": {
+        "auc": {
+          "mean": 0.9016,
+          "sd": 0.0033,
+          "n": 3,
+          "lo": 0.8934,
+          "hi": 0.9098,
+          "half_width": 0.0082,
+          "relative": 0.009,
+          "source": "baselines_ieee118_local_norm2_LSTM"
+        },
+        "random": {
+          "mean": 1.0,
+          "sd": 0.0,
+          "n": 3,
+          "lo": null,
+          "hi": null
+        },
+        "stealthy": {
+          "mean": 0.177,
+          "sd": 0.0121,
+          "n": 3,
+          "lo": 0.1469,
+          "hi": 0.2071,
+          "half_width": 0.0301,
+          "relative": 0.17,
+          "source": "baselines_ieee118_local_norm2_LSTM"
+        },
+        "redist": {
+          "mean": 0.7213,
+          "sd": 0.0068,
+          "n": 3,
+          "lo": 0.7044,
+          "hi": 0.7382,
+          "half_width": 0.0169,
+          "relative": 0.023,
+          "source": "baselines_ieee118_local_norm2_LSTM"
+        },
+        "fpr": {
+          "mean": 0.0119,
+          "sd": 0.003,
+          "n": 3,
+          "lo": 0.0044,
+          "hi": 0.0194,
+          "half_width": 0.0075,
+          "relative": 0.626,
+          "source": "baselines_ieee118_local_norm2_LSTM"
+        }
+      }
+    },
+    {
+      "detector": "Transformer",
+      "cells": {
+        "auc": {
+          "mean": 0.9468,
+          "sd": 0.0002,
+          "n": 3,
+          "lo": 0.9463,
+          "hi": 0.9473,
+          "half_width": 0.0005,
+          "relative": 0.001,
+          "source": "baselines_ieee118_local_norm_Transformer"
+        },
+        "random": {
+          "mean": 1.0,
+          "sd": 0.0,
+          "n": 3,
+          "lo": null,
+          "hi": null
+        },
+        "stealthy": {
+          "mean": 0.3837,
+          "sd": 0.0203,
+          "n": 3,
+          "lo": 0.3333,
+          "hi": 0.4341,
+          "half_width": 0.0504,
+          "relative": 0.131,
+          "source": "baselines_ieee118_local_norm_Transformer"
+        },
+        "redist": {
+          "mean": 0.818,
+          "sd": 0.0087,
+          "n": 3,
+          "lo": 0.7964,
+          "hi": 0.8396,
+          "half_width": 0.0216,
+          "relative": 0.026,
+          "source": "baselines_ieee118_local_norm_Transformer"
+        },
+        "fpr": {
+          "mean": 0.0122,
+          "sd": 0.0007,
+          "n": 3,
+          "lo": 0.0105,
+          "hi": 0.0139,
+          "half_width": 0.0017,
+          "relative": 0.143,
+          "source": "baselines_ieee118_local_norm_Transformer"
+        }
+      }
+    }
+  ]
+}

@@ -1,0 +1,53 @@
+{
+  "window": 8,
+  "n_benign": 2243,
+  "n_stealthy": 787,
+  "correction": "k_eff = round(k/window), n_eff = n//window; conservative",
+  "rows": [
+    {
+      "row": "BDD",
+      "detect_rate": 0.0114,
+      "fpr": 0.0107,
+      "ratio_to_floor": 1.07,
+      "detect_count": 9,
+      "fp_count": 24,
+      "p_naive": 0.8641,
+      "p_overlap_corrected": 0.9661,
+      "n_eff_stealthy": 98,
+      "n_eff_benign": 280,
+      "above_floor_after_correction": false,
+      "counts_are_derived_from_rates": true,
+      "caveat": "counts derived from slots.json rates times split sizes, not counted from scores; overlapping windows mean the naive p is optimistic"
+    },
+    {
+      "row": "Transformer",
+      "detect_rate": 0.3837,
+      "fpr": 0.0122,
+      "ratio_to_floor": 31.45,
+      "detect_count": 302,
+      "fp_count": 27,
+      "p_naive": 0.0,
+      "p_overlap_corrected": 0.0,
+      "n_eff_stealthy": 98,
+      "n_eff_benign": 280,
+      "above_floor_after_correction": true,
+      "counts_are_derived_from_rates": true,
+      "caveat": "counts derived from slots.json rates times split sizes, not counted from scores; overlapping windows mean the naive p is optimistic"
+    },
+    {
+      "row": "TemporalResidual",
+      "detect_rate": 0.9581,
+      "fpr": 0.021,
+      "ratio_to_floor": 45.62,
+      "detect_count": 754,
+      "fp_count": 47,
+      "p_naive": 0.0,
+      "p_overlap_corrected": 0.0,
+      "n_eff_stealthy": 98,
+      "n_eff_benign": 280,
+      "above_floor_after_correction": true,
+      "counts_are_derived_from_rates": true,
+      "caveat": "counts derived from slots.json rates times split sizes, not counted from scores; overlapping windows mean the naive p is optimistic"
+    }
+  ]
+}

@@ -1,0 +1,102 @@
+[
+  {
+    "case": "ieee14",
+    "n_samples": 19999,
+    "n_measurements": 34,
+    "cards": [
+      256,
+      34,
+      14,
+      32,
+      32,
+      32,
+      32
+    ],
+    "cols": [
+      "time_window",
+      "measurement_point",
+      "bus_id",
+      "bin_0",
+      "bin_1",
+      "bin_2",
+      "bin_3"
+    ],
+    "rows": 432,
+    "table_bytes": 110592
+  },
+  {
+    "case": "ieee57",
+    "n_samples": 19999,
+    "n_measurements": 135,
+    "cards": [
+      256,
+      135,
+      57,
+      32,
+      32,
+      32,
+      32
+    ],
+    "cols": [
+      "time_window",
+      "measurement_point",
+      "bus_id",
+      "bin_0",
+      "bin_1",
+      "bin_2",
+      "bin_3"
+    ],
+    "rows": 576,
+    "table_bytes": 147456
+  },
+  {
+    "case": "ieee118",
+    "n_samples": 19999,
+    "n_measurements": 297,
+    "cards": [
+      256,
+      297,
+      118,
+      32,
+      32,
+      32,
+      32
+    ],
+    "cols": [
+      "time_window",
+      "measurement_point",
+      "bus_id",
+      "bin_0",
+      "bin_1",
+      "bin_2",
+      "bin_3"
+    ],
+    "rows": 799,
+    "table_bytes": 204544
+  },
+  {
+    "case": "ieee300",
+    "n_samples": 19999,
+    "n_measurements": 709,
+    "cards": [
+      256,
+      709,
+      300,
+      32,
+      32,
+      32,
+      32
+    ],
+    "cols": [
+      "time_window",
+      "measurement_point",
+      "bus_id",
+      "bin_0",
+      "bin_1",
+      "bin_2",
+      "bin_3"
+    ],
+    "rows": 1393,
+    "table_bytes": 356608
+  }
+]

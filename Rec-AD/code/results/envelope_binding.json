@@ -1,0 +1,143 @@
+{
+  "device": "NVIDIA GeForce RTX 5060 Laptop GPU",
+  "total_mib": 8150.6,
+  "envelope_mib": 8192.0,
+  "tier": "local",
+  "publishable": false,
+  "note": "Measured on the local RTX 5060 (7.96 GiB). DEVICE_TIERS['local'] has publishable=False and config.yaml restricts reported resource numbers to t4/rtx2060/jetson, so these numbers cannot enter the paper as they stand. They answer whether the envelope binds, which a 16 GB device cannot. Training memory only; Adam state is not included.",
+  "rows": [
+    {
+      "detector": "BDD",
+      "batch": null,
+      "peak_mib": null,
+      "verdict": "not_applicable",
+      "note": "not a torch model"
+    },
+    {
+      "detector": "TemporalResidual",
+      "batch": null,
+      "peak_mib": null,
+      "verdict": "not_applicable",
+      "note": "not a torch model"
+    },
+    {
+      "detector": "SVM",
+      "batch": null,
+      "peak_mib": null,
+      "verdict": "not_applicable",
+      "note": "not a torch model"
+    },
+    {
+      "detector": "RF",
+      "batch": null,
+      "peak_mib": null,
+      "verdict": "not_applicable",
+      "note": "not a torch model"
+    },
+    {
+      "detector": "Autoencoder",
+      "batch": 256,
+      "peak_mib": 1319.3,
+      "verdict": "fits",
+      "note": "0.16x envelope"
+    },
+    {
+      "detector": "Autoencoder",
+      "batch": 4096,
+      "peak_mib": 1570.5,
+      "verdict": "fits",
+      "note": "0.19x envelope"
+    },
+    {
+      "detector": "Autoencoder",
+      "batch": 16384,
+      "peak_mib": 2370.9,
+      "verdict": "fits",
+      "note": "0.29x envelope"
+    },
+    {
+      "detector": "LSTM",
+      "batch": 256,
+      "peak_mib": 1325.3,
+      "verdict": "fits",
+      "note": "0.16x envelope"
+    },
+    {
+      "detector": "LSTM",
+      "batch": 4096,
+      "peak_mib": 1613.3,
+      "verdict": "fits",
+      "note": "0.20x envelope"
+    },
+    {
+      "detector": "LSTM",
+      "batch": 16384,
+      "peak_mib": 4789.1,
+      "verdict": "fits",
+      "note": "0.58x envelope"
+    },
+    {
+      "detector": "CNN",
+      "batch": 256,
+      "peak_mib": 1320.7,
+      "verdict": "fits",
+      "note": "0.16x envelope"
+    },
+    {
+      "detector": "CNN",
+      "batch": 4096,
+      "peak_mib": 1572.0,
+      "verdict": "fits",
+      "note": "0.19x envelope"
+    },
+    {
+      "detector": "CNN",
+      "batch": 16384,
+      "peak_mib": 2372.0,
+      "verdict": "fits",
+      "note": "0.29x envelope"
+    },
+    {
+      "detector": "GCN",
+      "batch": 256,
+      "peak_mib": 1316.7,
+      "verdict": "fits",
+      "note": "0.16x envelope"
+    },
+    {
+      "detector": "GCN",
+      "batch": 4096,
+      "peak_mib": 1728.9,
+      "verdict": "fits",
+      "note": "0.21x envelope"
+    },
+    {
+      "detector": "GCN",
+      "batch": 16384,
+      "peak_mib": 5315.2,
+      "verdict": "fits",
+      "note": "0.65x envelope"
+    },
+    {
+      "detector": "GAT",
+      "batch": 256,
+      "peak_mib": 1316.6,
+      "verdict": "fits",
+      "note": "0.16x envelope"
+    },
+    {
+      "detector": "GAT",
+      "batch": 4096,
+      "peak_mib": null,
+      "verdict": "oom",
+      "note": "torch.cuda.OutOfMemoryError"
+    },
+    {
+      "detector": "Transformer",
+      "batch": 256,
+      "peak_mib": null,
+      "verdict": "error",
+      "note": "MemoryError: Unable to allocate 272. MiB for an array with shape (30000, 8, 297) and data type float32"
+    }
+  ]
+}

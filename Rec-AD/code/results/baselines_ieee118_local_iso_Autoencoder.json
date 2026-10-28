@@ -1,0 +1,402 @@
+{
+  "experiment": "baselines_ieee118_local_iso_Autoencoder",
+  "generated_at": "2026-10-07T09:21:37.720742+00:00",
+  "n_records": 3,
+  "records": [
+    {
+      "threshold_strategy": "target_fpr",
+      "val_accuracy": 0.49933333333333335,
+      "val_precision": 0.5399999999999892,
+      "val_recall": 0.011962782454585728,
+      "val_f1": 0.023407022106589563,
+      "val_fpr": 0.010254123941150241,
+      "val_tp": 27,
+      "val_fp": 23,
+      "val_tn": 2220,
+      "val_fn": 2230,
+      "val_n_samples": 4500,
+      "val_threshold": 0.5068604350090027,
+      "val_auc": 0.5030063500861539,
+      "val_ap": 0.5079018477427121,
+      "val_tpr_at_fpr_1pct": 0.011962782454585734,
+      "accuracy": 0.49822222222222223,
+      "precision": 0.4901960784313629,
+      "recall": 0.011076650420912711,
+      "f1": 0.021663778162868377,
+      "fpr": 0.011591618368256795,
+      "tp": 25,
+      "fp": 26,
+      "tn": 2217,
+      "fn": 2232,
+      "n_samples": 4500,
+      "threshold": 0.5068604350090027,
+      "auc": 0.49227617215455516,
+      "ap": 0.49479325863469037,
+      "tpr_at_fpr_1pct": 0.0101905183872397,
+      "detect_rate_normal_fp": 0.0115916183682568,
+      "n_normal": 2243.0,
+      "detect_rate_random": 0.01366120218579235,
+      "n_random": 732.0,
+      "detect_rate_stealthy": 0.007623888182973317,
+      "n_stealthy": 787.0,
+      "detect_rate_load_redist": 0.012195121951219513,
+      "n_load_redist": 738.0,
+      "embedding_rows": 1048355.0,
+      "embedding_bytes": 67094720.0,
+      "n_parameters": 16956345,
+      "model_bytes": 67825388,
+      "model": "Autoencoder",
+      "family": "deep",
+      "seed": 0,
+      "tier": "local",
+      "fit_seconds": 37.22756970000046,
+      "train_seconds": NaN,
+      "n_epochs_run": 0,
+      "batch_size": 4096,
+      "standardize": false,
+      "target_fpr": 0.01
+    },
+    {
+      "threshold_strategy": "target_fpr",
+      "val_accuracy": 0.49866666666666665,
+      "val_precision": 0.5106382978723295,
+      "val_recall": 0.010633584404076203,
+      "val_f1": 0.020833333333293347,
+      "val_fpr": 0.010254123941150241,
+      "val_tp": 24,
+      "val_fp": 23,
+      "val_tn": 2220,
+      "val_fn": 2233,
+      "val_n_samples": 4500,
+      "val_threshold": 0.5056225657463074,
+      "val_auc": 0.5002633111905677,
+      "val_ap": 0.5064926310461371,
+      "val_tpr_at_fpr_1pct": 0.010633584404076208,
+      "accuracy": 0.49777777777777776,
+      "precision": 0.4705882352941084,
+      "recall": 0.010633584404076203,
+      "f1": 0.020797227036351913,
+      "fpr": 0.012037449843958978,
+      "tp": 24,
+      "fp": 27,
+      "tn": 2216,
+      "fn": 2233,
+      "n_samples": 4500,
+      "threshold": 0.5056225657463074,
+      "auc": 0.48169157587895667,
+      "ap": 0.491000912703831,
+      "tpr_at_fpr_1pct": 0.008418254319893664,
+      "detect_rate_normal_fp": 0.012037449843958983,
+      "n_normal": 2243.0,
+      "detect_rate_random": 0.01366120218579235,
+      "n_random": 732.0,
+      "detect_rate_stealthy": 0.007623888182973317,
+      "n_stealthy": 787.0,
+      "detect_rate_load_redist": 0.01084010840108401,
+      "n_load_redist": 738.0,
+      "embedding_rows": 1048355.0,
+      "embedding_bytes": 67094720.0,
+      "n_parameters": 16956345,
+      "model_bytes": 67825388,
+      "model": "Autoencoder",
+      "family": "deep",
+      "seed": 1,
+      "tier": "local",
+      "fit_seconds": 31.562841099999787,
+      "train_seconds": NaN,
+      "n_epochs_run": 0,
+      "batch_size": 4096,
+      "standardize": false,
+      "target_fpr": 0.01
+    },
+    {
+      "threshold_strategy": "target_fpr",
+      "val_accuracy": 0.49955555555555553,
+      "val_precision": 0.5490196078431264,
+      "val_recall": 0.012405848471422237,
+      "val_f1": 0.02426343154241777,
+      "val_fpr": 0.010254123941150241,
+      "val_tp": 28,
+      "val_fp": 23,
+      "val_tn": 2220,
+      "val_fn": 2229,
+      "val_n_samples": 4500,
+      "val_threshold": 0.510077714920044,
+      "val_auc": 0.5009541820750463,
+      "val_ap": 0.508502595266843,
+      "val_tpr_at_fpr_1pct": 0.012405848471422242,
+      "accuracy": 0.4971111111111111,
+      "precision": 0.4558823529411698,
+      "recall": 0.013735046521931762,
+      "f1": 0.026666666666609863,
+      "fpr": 0.016495764600980824,
+      "tp": 31,
+      "fp": 37,
+      "tn": 2206,
+      "fn": 2226,
+      "n_samples": 4500,
+      "threshold": 0.510077714920044,
+      "auc": 0.5143111508634849,
+      "ap": 0.5116378560214361,
+      "tpr_at_fpr_1pct": 0.007532122286220647,
+      "detect_rate_normal_fp": 0.01649576460098083,
+      "n_normal": 2243.0,
+      "detect_rate_random": 0.017759562841530054,
+      "n_random": 732.0,
+      "detect_rate_stealthy": 0.017789072426937738,
+      "n_stealthy": 787.0,
+      "detect_rate_load_redist": 0.005420054200542005,
+      "n_load_redist": 738.0,
+      "embedding_rows": 1048355.0,
+      "embedding_bytes": 67094720.0,
+      "n_parameters": 16956345,
+      "model_bytes": 67825388,
+      "model": "Autoencoder",
+      "family": "deep",
+      "seed": 2,
+      "tier": "local",
+      "fit_seconds": 50.562698400000954,
+      "train_seconds": NaN,
+      "n_epochs_run": 0,
+      "batch_size": 4096,
+      "standardize": false,
+      "target_fpr": 0.01
+    }
+  ],
+  "config": {
+    "seeds": [
+      0,
+      1,
+      2
+    ],
+    "data": {
+      "path": "data_cache/ieee118.npz",
+      "split_ratios": {
+        "train": 0.7,
+        "val": 0.15,
+        "test": 0.15
+      },
+      "standardize": false,
+      "num_workers": 0
+    },
+    "budget": {
+      "vram_gb": 8,
+      "power_w": 60,
+      "latency_ms": 500
+    },
+    "measure": {
+      "tier": "t4",
+      "latency": {
+        "batch_size": 1,
+        "warmup_iters": 50,
+        "measure_iters": 500,
+        "percentiles": [
+          50,
+          95,
+          99
+        ]
+      },
+      "energy": {
+        "sample_interval_ms": 100,
+        "idle_baseline_s": 5
+      }
+    },
+    "embedding_backend": "reference",
+    "cuda_efftt_module": "",
+    "tt": {
+      "split": {
+        "d": 3,
+        "n_per_core": 4
+      },
+      "rank": 32,
+      "rank_sweep": [
+        4,
+        8,
+        16,
+        24,
+        32,
+        48,
+        64
+      ],
+      "reuse": {
+        "sample_level": true,
+        "batch_level": true
+      }
+    },
+    "train": {
+      "epochs": 20,
+      "batch_size": 4096,
+      "lr": 0.001,
+      "weight_decay": 0.0001,
+      "optimizer": "adam",
+      "grad_clip": 5.0,
+      "early_stop_patience": 4,
+      "amp": false,
+      "pos_weight": null
+    },
+    "baselines": {
+      "bdd": {
+        "enabled": true,
+        "alpha": 0.01,
+        "lnr_sigma": 3.0
+      },
+      "svm": {
+        "enabled": true,
+        "kernel": "rbf",
+        "C": 1.0,
+        "gamma": "scale",
+        "max_train_samples": 4000
+      },
+      "rf": {
+        "enabled": true,
+        "n_estimators": 300,
+        "max_depth": null,
+        "n_jobs": -1
+      },
+      "autoencoder": {
+        "enabled": true,
+        "hidden": [
+          256,
+          64,
+          256
+        ],
+        "latent": 16
+      },
+      "lstm": {
+        "enabled": true,
+        "hidden": 128,
+        "layers": 2,
+        "bidirectional": false
+      },
+      "cnn": {
+        "enabled": true,
+        "channels": [
+          32,
+          64,
+          128
+        ],
+        "kernel": 3,
+        "dropout": 0.1
+      },
+      "gnn": {
+        "enabled": true,
+        "variants": [
+          "gcn",
+          "gat"
+        ],
+        "hidden": 64,
+        "layers": 2,
+        "heads": 4,
+        "dropout": 0.1
+      },
+      "transformer": {
+        "enabled": true,
+        "d_model": 128,
+        "nhead": 4,
+        "layers": 3,
+        "ff": 256,
+        "dropout": 0.1
+      }
+    },
+    "baseline_tuning": {
+      "enabled": false,
+      "grid": {
+        "lr": [
+          0.0003,
+          0.001,
+          0.003
+        ],
+        "batch_size": [
+          1024,
+          4096
+        ],
+        "epochs": [
+          10,
+          20
+        ]
+      }
+    },
+    "ablation": {
+      "components": {
+        "eff_tt": true,
+        "reorder": true,
+        "pipeline": true
+      },
+      "cumulative": true,
+      "lr_by_embedding": {
+        "eff_tt": 0.001,
+        "dense": 0.003
+      }
+    },
+    "fedavg": {
+      "silos": 4,
+      "rounds": 30,
+      "local_epochs": 2,
+      "sync": "tt_cores",
+      "baselines": [
+        "full_embedding"
+      ]
+    },
+    "output": {
+      "results_dir": "results",
+      "figures_dir": "figures",
+      "save_predictions": true,
+      "log_level": "INFO"
+    }
+  },
+  "environment": {
+    "python": "3.13.5",
+    "platform": "Windows-11-10.0.26300-SP0",
+    "processor": "Intel64 Family 6 Model 183 Stepping 1, GenuineIntel",
+    "device_tier": "local",
+    "tier_publishable": false,
+    "torch": "2.14.1+cpu",
+    "cuda_available": false,
+    "nvidia_driver": "592.15"
+  },
+  "budget": {
+    "vram_gb": 8,
+    "power_w": 60,
+    "latency_ms": 500
+  },
+  "data_file": "data_cache/ieee118.npz",
+  "models": [
+    "Autoencoder"
+  ],
+  "seeds": [
+    0,
+    1,
+    2
+  ],
+  "summary": [
+    {
+      "model": "Autoencoder",
+      "family": "deep",
+      "accuracy_mean": 0.4977037037037037,
+      "accuracy_std": 0.0005592469952052429,
+      "precision_mean": 0.4722222222222137,
+      "precision_std": 0.017215120511195864,
+      "recall_mean": 0.011815093782306892,
+      "recall_std": 0.001677420867168889,
+      "f1_mean": 0.023042557288610054,
+      "f1_std": 0.0031683362039872562,
+      "auc_mean": 0.49609296629899885,
+      "auc_std": 0.016641367317579703,
+      "fpr_mean": 0.01337494427106553,
+      "fpr_std": 0.002711886995228809,
+      "tpr_at_fpr_1pct_mean": 0.008713631664451335,
+      "tpr_at_fpr_1pct_std": 0.001353589040010586,
+      "detect_rate_random_mean": 0.015027322404371582,
+      "detect_rate_random_std": 0.0023661896278263346,
+      "detect_rate_stealthy_mean": 0.011012282930961457,
+      "detect_rate_stealthy_std": 0.005868871859615001,
+      "detect_rate_load_redist_mean": 0.00948509485094851,
+      "detect_rate_load_redist_std": 0.003585028876781288,
+      "detect_rate_normal_fp_mean": 0.013374944271065538,
+      "detect_rate_normal_fp_std": 0.00271188699522881,
+      "train_seconds_mean": null,
+      "train_seconds_std": 0.0
+    }
+  ],
+  "skipped": []
+}

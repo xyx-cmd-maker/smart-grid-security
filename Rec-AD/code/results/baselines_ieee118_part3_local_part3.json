@@ -1,0 +1,448 @@
+{
+  "experiment": "baselines_ieee118_part3_local_part3",
+  "generated_at": "2026-10-24T16:52:46.781387+00:00",
+  "n_records": 2,
+  "records": [
+    {
+      "threshold_strategy": "target_fpr",
+      "val_accuracy": 0.8246666666666667,
+      "val_precision": 0.9844489519945904,
+      "val_recall": 0.655265526552655,
+      "val_f1": 0.7868143744928998,
+      "val_fpr": 0.010096575943810356,
+      "val_tp": 1456,
+      "val_fp": 23,
+      "val_tn": 2255,
+      "val_fn": 766,
+      "val_n_samples": 4500,
+      "val_threshold": 0.9879251718521118,
+      "val_auc": 0.8290030495586871,
+      "val_ap": 0.882015307443852,
+      "val_tpr_at_fpr_1pct": 0.6552655265526552,
+      "accuracy": 0.8211111111111111,
+      "precision": 0.9835277968428271,
+      "recall": 0.6472448057813909,
+      "f1": 0.7807137019880798,
+      "fpr": 0.010498687664041991,
+      "tp": 1433,
+      "fp": 24,
+      "tn": 2262,
+      "fn": 781,
+      "n_samples": 4500,
+      "threshold": 0.9879251718521118,
+      "auc": 0.8289744890741413,
+      "ap": 0.8805930062509215,
+      "tpr_at_fpr_1pct": 0.6472448057813911,
+      "detect_rate_normal_fp": 0.010498687664041995,
+      "n_normal": 2286.0,
+      "detect_rate_random": 1.0,
+      "n_random": 753.0,
+      "detect_rate_stealthy": 0.012345679012345678,
+      "n_stealthy": 729.0,
+      "detect_rate_load_redist": 0.9166666666666666,
+      "n_load_redist": 732.0,
+      "auc_random": 1.0,
+      "auc_stealthy": 0.5073807646472175,
+      "auc_load_redist": 0.9733182259321409,
+      "threshold_at_fpr1pct": 0.9886606335639954,
+      "unified_detect_rate_normal_fp": 0.010061242344706912,
+      "unified_n_normal": 2286.0,
+      "unified_detect_rate_random": 1.0,
+      "unified_n_random": 753.0,
+      "unified_detect_rate_stealthy": 0.012345679012345678,
+      "unified_n_stealthy": 729.0,
+      "unified_detect_rate_load_redist": 0.9166666666666666,
+      "unified_n_load_redist": 732.0,
+      "bdd_threshold": 225.48033254553062,
+      "bdd_fpr_at_threshold": 0.009186351706036745,
+      "bdd_detect_rate_random": 1.0,
+      "bdd_detect_rate_stealthy": 0.012345679012345678,
+      "bdd_detect_rate_load_redist": 0.9153005464480874,
+      "n_parameters": 0,
+      "model_bytes": 4.0,
+      "model": "BDD",
+      "family": "physics",
+      "seed": 0,
+      "tier": "local",
+      "fit_seconds": 1.212350300000253,
+      "train_seconds": NaN,
+      "n_epochs_run": 0,
+      "batch_size": 4096,
+      "standardize": false,
+      "target_fpr": 0.01,
+      "latency_ms_mean": 0.1021617999940645,
+      "latency_ms_p50": 0.08499999967170879,
+      "latency_ms_p95": 0.2100000004247702,
+      "latency_ms_p99": 0.3216660004545701,
+      "throughput_tps": 9750.351987478287,
+      "peak_vram_mb": NaN,
+      "energy_j_per_inference": NaN,
+      "gpu_power_w": NaN,
+      "oom": 0.0,
+      "fits_budget": 1.0,
+      "profile_notes": "power sampling unavailable; energy not measured; tier 'local' is NOT publishable - do not report these numbers"
+    },
+    {
+      "threshold_strategy": "target_fpr",
+      "val_accuracy": 0.9811111111111112,
+      "val_precision": 0.9802247191011232,
+      "val_recall": 0.9815481548154812,
+      "val_f1": 0.9808859905549303,
+      "val_fpr": 0.019315188762071986,
+      "val_tp": 2181,
+      "val_fp": 44,
+      "val_tn": 2234,
+      "val_fn": 41,
+      "val_n_samples": 4500,
+      "val_threshold": 1.0,
+      "val_auc": 0.9883035713580138,
+      "val_ap": 0.9787908356275357,
+      "val_tpr_at_fpr_1pct": 0.9815481548154815,
+      "accuracy": 0.9753333333333334,
+      "precision": 0.9721598563089354,
+      "recall": 0.9778681120144531,
+      "f1": 0.9750056293622558,
+      "fpr": 0.02712160979877514,
+      "tp": 2165,
+      "fp": 62,
+      "tn": 2224,
+      "fn": 49,
+      "n_samples": 4500,
+      "threshold": 1.0,
+      "auc": 0.9828916202547852,
+      "ap": 0.9697974216760589,
+      "tpr_at_fpr_1pct": 0.9778681120144534,
+      "detect_rate_normal_fp": 0.02712160979877515,
+      "n_normal": 2286.0,
+      "detect_rate_random": 1.0,
+      "n_random": 753.0,
+      "detect_rate_stealthy": 0.9423868312757202,
+      "n_stealthy": 729.0,
+      "detect_rate_load_redist": 0.9904371584699454,
+      "n_load_redist": 732.0,
+      "auc_random": 0.9864391951006124,
+      "auc_stealthy": 0.9763302478136735,
+      "auc_load_redist": 0.9857767522912095,
+      "threshold_at_fpr1pct": 1.0,
+      "unified_detect_rate_normal_fp": 0.02712160979877515,
+      "unified_n_normal": 2286.0,
+      "unified_detect_rate_random": 1.0,
+      "unified_n_random": 753.0,
+      "unified_detect_rate_stealthy": 0.9423868312757202,
+      "unified_n_stealthy": 729.0,
+      "unified_detect_rate_load_redist": 0.9904371584699454,
+      "unified_n_load_redist": 732.0,
+      "temporal_threshold": 457.4535391910771,
+      "temporal_fpr_at_threshold": 0.5831146106736658,
+      "temporal_detect_rate_random": 1.0,
+      "temporal_detect_rate_stealthy": 0.9931412894375857,
+      "temporal_detect_rate_load_redist": 1.0,
+      "n_parameters": 0,
+      "model_bytes": 4.0,
+      "model": "TemporalResidual",
+      "family": "physics_temporal",
+      "seed": 0,
+      "tier": "local",
+      "fit_seconds": 3.6591761999989103,
+      "train_seconds": NaN,
+      "n_epochs_run": 0,
+      "batch_size": 4096,
+      "standardize": false,
+      "target_fpr": 0.01,
+      "latency_ms_mean": 0.2846576000483765,
+      "latency_ms_p50": 0.25570000070729293,
+      "latency_ms_p95": 0.46051000072111464,
+      "latency_ms_p99": 0.6656129997463721,
+      "throughput_tps": 3507.2631913622545,
+      "peak_vram_mb": NaN,
+      "energy_j_per_inference": NaN,
+      "gpu_power_w": NaN,
+      "oom": 0.0,
+      "fits_budget": 1.0,
+      "profile_notes": "power sampling unavailable; energy not measured; tier 'local' is NOT publishable - do not report these numbers"
+    }
+  ],
+  "config": {
+    "seeds": [
+      0,
+      1,
+      2
+    ],
+    "data": {
+      "path": "data_cache/ieee118.npz",
+      "split_ratios": {
+        "train": 0.7,
+        "val": 0.15,
+        "test": 0.15
+      },
+      "standardize": false,
+      "num_workers": 0
+    },
+    "budget": {
+      "vram_gb": 8,
+      "power_w": 60,
+      "latency_ms": 500
+    },
+    "measure": {
+      "tier": "t4",
+      "latency": {
+        "batch_size": 1,
+        "warmup_iters": 50,
+        "measure_iters": 500,
+        "percentiles": [
+          50,
+          95,
+          99
+        ]
+      },
+      "energy": {
+        "sample_interval_ms": 100,
+        "idle_baseline_s": 5
+      }
+    },
+    "embedding_backend": "reference",
+    "cuda_efftt_module": "",
+    "tt": {
+      "split": {
+        "d": 3,
+        "n_per_core": 4
+      },
+      "rank": 32,
+      "rank_sweep": [
+        4,
+        8,
+        16,
+        24,
+        32,
+        48,
+        64
+      ],
+      "reuse": {
+        "sample_level": true,
+        "batch_level": true
+      }
+    },
+    "train": {
+      "epochs": 20,
+      "batch_size": 4096,
+      "lr": 0.001,
+      "weight_decay": 0.0001,
+      "optimizer": "adam",
+      "grad_clip": 5.0,
+      "early_stop_patience": 4,
+      "amp": false,
+      "pos_weight": null
+    },
+    "baselines": {
+      "bdd": {
+        "enabled": true,
+        "alpha": 0.01,
+        "lnr_sigma": 3.0
+      },
+      "svm": {
+        "enabled": true,
+        "kernel": "rbf",
+        "C": 1.0,
+        "gamma": "scale",
+        "max_train_samples": 4000
+      },
+      "rf": {
+        "enabled": true,
+        "n_estimators": 300,
+        "max_depth": null,
+        "n_jobs": 1
+      },
+      "autoencoder": {
+        "enabled": true,
+        "hidden": [
+          256,
+          64,
+          256
+        ],
+        "latent": 16
+      },
+      "lstm": {
+        "enabled": true,
+        "hidden": 128,
+        "layers": 2,
+        "bidirectional": false
+      },
+      "cnn": {
+        "enabled": true,
+        "channels": [
+          32,
+          64,
+          128
+        ],
+        "kernel": 3,
+        "dropout": 0.1
+      },
+      "gnn": {
+        "enabled": true,
+        "variants": [
+          "gcn",
+          "gat"
+        ],
+        "hidden": 64,
+        "layers": 2,
+        "heads": 4,
+        "dropout": 0.1
+      },
+      "transformer": {
+        "enabled": true,
+        "d_model": 128,
+        "nhead": 4,
+        "layers": 3,
+        "ff": 256,
+        "dropout": 0.1
+      }
+    },
+    "baseline_tuning": {
+      "enabled": false,
+      "grid": {
+        "lr": [
+          0.0003,
+          0.001,
+          0.003
+        ],
+        "batch_size": [
+          1024,
+          4096
+        ],
+        "epochs": [
+          10,
+          20
+        ]
+      }
+    },
+    "ablation": {
+      "components": {
+        "eff_tt": true,
+        "reorder": true,
+        "pipeline": true
+      },
+      "cumulative": true,
+      "lr_by_embedding": {
+        "eff_tt": 0.001,
+        "dense": 0.003
+      }
+    },
+    "fedavg": {
+      "silos": 4,
+      "rounds": 30,
+      "local_epochs": 2,
+      "sync": "tt_cores",
+      "baselines": [
+        "full_embedding"
+      ]
+    },
+    "output": {
+      "results_dir": "results",
+      "figures_dir": "figures",
+      "save_predictions": true,
+      "log_level": "INFO"
+    }
+  },
+  "environment": {
+    "python": "3.14.4",
+    "platform": "Windows-11-10.0.26300-SP0",
+    "processor": "Intel64 Family 6 Model 183 Stepping 1, GenuineIntel",
+    "device_tier": "local",
+    "tier_publishable": false,
+    "torch": "2.11.0+cu128",
+    "torch_num_threads": 1,
+    "torch_num_interop_threads": 16,
+    "omp_num_threads": "1",
+    "mkl_num_threads": "1",
+    "cuda_available": false,
+    "nvidia_driver": "592.15"
+  },
+  "budget": {
+    "vram_gb": 8,
+    "power_w": 60,
+    "latency_ms": 500
+  },
+  "data_file": "code\\data_cache\\ieee118_part3.npz",
+  "models": [
+    "BDD",
+    "TemporalResidual"
+  ],
+  "seeds": [
+    0
+  ],
+  "summary": [
+    {
+      "model": "BDD",
+      "family": "physics",
+      "accuracy_mean": 0.8211111111111111,
+      "accuracy_std": 0.0,
+      "precision_mean": 0.9835277968428271,
+      "precision_std": 0.0,
+      "recall_mean": 0.6472448057813909,
+      "recall_std": 0.0,
+      "f1_mean": 0.7807137019880798,
+      "f1_std": 0.0,
+      "auc_mean": 0.8289744890741413,
+      "auc_std": 0.0,
+      "fpr_mean": 0.010498687664041991,
+      "fpr_std": 0.0,
+      "tpr_at_fpr_1pct_mean": 0.6472448057813911,
+      "tpr_at_fpr_1pct_std": 0.0,
+      "detect_rate_random_mean": 1.0,
+      "detect_rate_random_std": 0.0,
+      "detect_rate_stealthy_mean": 0.012345679012345678,
+      "detect_rate_stealthy_std": 0.0,
+      "detect_rate_load_redist_mean": 0.9166666666666666,
+      "detect_rate_load_redist_std": 0.0,
+      "detect_rate_normal_fp_mean": 0.010498687664041995,
+      "detect_rate_normal_fp_std": 0.0,
+      "latency_ms_p50_mean": 0.08499999967170879,
+      "latency_ms_p50_std": 0.0,
+      "latency_ms_p99_mean": 0.3216660004545701,
+      "latency_ms_p99_std": 0.0,
+      "peak_vram_mb_mean": null,
+      "peak_vram_mb_std": 0.0,
+      "energy_j_per_inference_mean": null,
+      "energy_j_per_inference_std": 0.0,
+      "train_seconds_mean": null,
+      "train_seconds_std": 0.0
+    },
+    {
+      "model": "TemporalResidual",
+      "family": "physics_temporal",
+      "accuracy_mean": 0.9753333333333334,
+      "accuracy_std": 0.0,
+      "precision_mean": 0.9721598563089354,
+      "precision_std": 0.0,
+      "recall_mean": 0.9778681120144531,
+      "recall_std": 0.0,
+      "f1_mean": 0.9750056293622558,
+      "f1_std": 0.0,
+      "auc_mean": 0.9828916202547852,
+      "auc_std": 0.0,
+      "fpr_mean": 0.02712160979877514,
+      "fpr_std": 0.0,
+      "tpr_at_fpr_1pct_mean": 0.9778681120144534,
+      "tpr_at_fpr_1pct_std": 0.0,
+      "detect_rate_random_mean": 1.0,
+      "detect_rate_random_std": 0.0,
+      "detect_rate_stealthy_mean": 0.9423868312757202,
+      "detect_rate_stealthy_std": 0.0,
+      "detect_rate_load_redist_mean": 0.9904371584699454,
+      "detect_rate_load_redist_std": 0.0,
+      "detect_rate_normal_fp_mean": 0.02712160979877515,
+      "detect_rate_normal_fp_std": 0.0,
+      "latency_ms_p50_mean": 0.25570000070729293,
+      "latency_ms_p50_std": 0.0,
+      "latency_ms_p99_mean": 0.6656129997463721,
+      "latency_ms_p99_std": 0.0,
+      "peak_vram_mb_mean": null,
+      "peak_vram_mb_std": 0.0,
+      "energy_j_per_inference_mean": null,
+      "energy_j_per_inference_std": 0.0,
+      "train_seconds_mean": null,
+      "train_seconds_std": 0.0
+    }
+  ],
+  "skipped": []
+}

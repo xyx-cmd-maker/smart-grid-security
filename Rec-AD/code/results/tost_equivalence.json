@@ -1,0 +1,82 @@
+{
+  "stealthy_vs_benign|dense (297)": {
+    "train_auc": 0.5727883324048166,
+    "test_auc": 0.49037385015734686,
+    "ci_low": 0.4676291338777219,
+    "ci_high": 0.5137452354365339,
+    "tost": "不能声称等价——区间未完全落在边界内",
+    "equivalent": false,
+    "n_pos": 544,
+    "n_neg": 1458
+  },
+  "stealthy_vs_benign|residual (297)": {
+    "train_auc": 0.5920504637728458,
+    "test_auc": 0.49413731541999517,
+    "ci_low": 0.4713804205637495,
+    "ci_high": 0.5173643249313131,
+    "tost": "可声称等价于随机（在 ±0.03 内）",
+    "equivalent": true,
+    "n_pos": 544,
+    "n_neg": 1458
+  },
+  "stealthy_vs_benign|innovation stats (891)": {
+    "train_auc": 0.9789760368138621,
+    "test_auc": 0.9336772774953602,
+    "ci_low": 0.9229134144724374,
+    "ci_high": 0.9440286349931932,
+    "tost": "不能声称等价——区间未完全落在边界内",
+    "equivalent": false,
+    "n_pos": 544,
+    "n_neg": 1458
+  },
+  "stealthy_vs_benign|sparse (8)": {
+    "train_auc": 0.5146224152289254,
+    "test_auc": 0.47875312676510934,
+    "ci_low": 0.4540964069402066,
+    "ci_high": 0.503835918945651,
+    "tost": "不能声称等价——区间未完全落在边界内",
+    "equivalent": false,
+    "n_pos": 544,
+    "n_neg": 1458
+  },
+  "random_vs_benign(CONTROL)|dense (297)": {
+    "train_auc": 0.6191368702362128,
+    "test_auc": 0.5005125983683488,
+    "ci_low": 0.4716643011562022,
+    "ci_high": 0.5302115948178917,
+    "tost": "不能声称等价——区间未完全落在边界内",
+    "equivalent": false,
+    "n_pos": 475,
+    "n_neg": 1458
+  },
+  "random_vs_benign(CONTROL)|residual (297)": {
+    "train_auc": 0.6091460954202372,
+    "test_auc": 0.5025745433542704,
+    "ci_low": 0.4658939933839911,
+    "ci_high": 0.5384633117055915,
+    "tost": "不能声称等价——区间未完全落在边界内",
+    "equivalent": false,
+    "n_pos": 475,
+    "n_neg": 1458
+  },
+  "random_vs_benign(CONTROL)|innovation stats (891)": {
+    "train_auc": 1.0,
+    "test_auc": 1.0,
+    "ci_low": 1.0,
+    "ci_high": 1.0,
+    "tost": "不能声称等价——区间未完全落在边界内",
+    "equivalent": false,
+    "n_pos": 475,
+    "n_neg": 1458
+  },
+  "random_vs_benign(CONTROL)|sparse (8)": {
+    "train_auc": 0.514255845265372,
+    "test_auc": 0.5124092123312396,
+    "ci_low": 0.4881812680895719,
+    "ci_high": 0.5374844703417819,
+    "tost": "不能声称等价——区间未完全落在边界内",
+    "equivalent": false,
+    "n_pos": 475,
+    "n_neg": 1458
+  }
+}

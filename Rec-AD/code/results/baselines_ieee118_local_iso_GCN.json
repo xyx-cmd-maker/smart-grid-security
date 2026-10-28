@@ -1,0 +1,402 @@
+{
+  "experiment": "baselines_ieee118_local_iso_GCN",
+  "generated_at": "2026-10-07T09:35:48.472975+00:00",
+  "n_records": 3,
+  "records": [
+    {
+      "threshold_strategy": "target_fpr",
+      "val_accuracy": 0.49777777777777776,
+      "val_precision": 0.4651162790697566,
+      "val_recall": 0.008861320336730169,
+      "val_f1": 0.01739130434778938,
+      "val_fpr": 0.010254123941150241,
+      "val_tp": 20,
+      "val_fp": 23,
+      "val_tn": 2220,
+      "val_fn": 2237,
+      "val_n_samples": 4500,
+      "val_threshold": 0.5273454785346985,
+      "val_auc": 0.5243733717126349,
+      "val_ap": 0.5220272146805514,
+      "val_tpr_at_fpr_1pct": 0.008861320336730172,
+      "accuracy": 0.4971111111111111,
+      "precision": 0.4399999999999912,
+      "recall": 0.009747452370403186,
+      "f1": 0.0190723883831392,
+      "fpr": 0.012483281319661163,
+      "tp": 22,
+      "fp": 28,
+      "tn": 2215,
+      "fn": 2235,
+      "n_samples": 4500,
+      "threshold": 0.5273454785346985,
+      "auc": 0.5128817049290947,
+      "ap": 0.5066600270736243,
+      "tpr_at_fpr_1pct": 0.00930438635356668,
+      "detect_rate_normal_fp": 0.012483281319661168,
+      "n_normal": 2243.0,
+      "detect_rate_random": 0.01639344262295082,
+      "n_random": 732.0,
+      "detect_rate_stealthy": 0.005082592121982211,
+      "n_stealthy": 787.0,
+      "detect_rate_load_redist": 0.008130081300813009,
+      "n_load_redist": 738.0,
+      "embedding_rows": 1048355.0,
+      "embedding_bytes": 67094720.0,
+      "n_parameters": 16791601,
+      "model_bytes": 67166404,
+      "model": "GCN",
+      "family": "gnn",
+      "seed": 0,
+      "tier": "local",
+      "fit_seconds": 115.89314720000039,
+      "train_seconds": 113.12177599999995,
+      "n_epochs_run": 12,
+      "batch_size": 4096,
+      "standardize": false,
+      "target_fpr": 0.01
+    },
+    {
+      "threshold_strategy": "target_fpr",
+      "val_accuracy": 0.49777777777777776,
+      "val_precision": 0.4651162790697566,
+      "val_recall": 0.008861320336730169,
+      "val_f1": 0.01739130434778938,
+      "val_fpr": 0.010254123941150241,
+      "val_tp": 20,
+      "val_fp": 23,
+      "val_tn": 2220,
+      "val_fn": 2237,
+      "val_n_samples": 4500,
+      "val_threshold": 0.6511072516441345,
+      "val_auc": 0.4986462091188636,
+      "val_ap": 0.49939715601492485,
+      "val_tpr_at_fpr_1pct": 0.008861320336730172,
+      "accuracy": 0.49733333333333335,
+      "precision": 0.4390243902438917,
+      "recall": 0.007975188303057152,
+      "f1": 0.01566579634461246,
+      "fpr": 0.010254123941150241,
+      "tp": 18,
+      "fp": 23,
+      "tn": 2220,
+      "fn": 2239,
+      "n_samples": 4500,
+      "threshold": 0.6511072516441345,
+      "auc": 0.5107310668290913,
+      "ap": 0.49993487203365344,
+      "tpr_at_fpr_1pct": 0.007975188303057155,
+      "detect_rate_normal_fp": 0.010254123941150245,
+      "n_normal": 2243.0,
+      "detect_rate_random": 0.006830601092896175,
+      "n_random": 732.0,
+      "detect_rate_stealthy": 0.011435832274459974,
+      "n_stealthy": 787.0,
+      "detect_rate_load_redist": 0.005420054200542005,
+      "n_load_redist": 738.0,
+      "embedding_rows": 1048355.0,
+      "embedding_bytes": 67094720.0,
+      "n_parameters": 16791601,
+      "model_bytes": 67166404,
+      "model": "GCN",
+      "family": "gnn",
+      "seed": 1,
+      "tier": "local",
+      "fit_seconds": 72.8770846999978,
+      "train_seconds": 72.69569939999928,
+      "n_epochs_run": 7,
+      "batch_size": 4096,
+      "standardize": false,
+      "target_fpr": 0.01
+    },
+    {
+      "threshold_strategy": "target_fpr",
+      "val_accuracy": 0.49822222222222223,
+      "val_precision": 0.488888888888878,
+      "val_recall": 0.009747452370403186,
+      "val_f1": 0.01911381407467929,
+      "val_fpr": 0.010254123941150241,
+      "val_tp": 22,
+      "val_fp": 23,
+      "val_tn": 2220,
+      "val_fn": 2235,
+      "val_n_samples": 4500,
+      "val_threshold": 0.6578683257102966,
+      "val_auc": 0.5149523422547695,
+      "val_ap": 0.5136076025896118,
+      "val_tpr_at_fpr_1pct": 0.00974745237040319,
+      "accuracy": 0.498,
+      "precision": 0.4772727272727164,
+      "recall": 0.009304386353566677,
+      "f1": 0.01825293350713327,
+      "fpr": 0.010254123941150241,
+      "tp": 21,
+      "fp": 23,
+      "tn": 2220,
+      "fn": 2236,
+      "n_samples": 4500,
+      "threshold": 0.6578683257102966,
+      "auc": 0.5002762495874034,
+      "ap": 0.5009742669234197,
+      "tpr_at_fpr_1pct": 0.00930438635356668,
+      "detect_rate_normal_fp": 0.010254123941150245,
+      "n_normal": 2243.0,
+      "detect_rate_random": 0.01366120218579235,
+      "n_random": 732.0,
+      "detect_rate_stealthy": 0.0038119440914866584,
+      "n_stealthy": 787.0,
+      "detect_rate_load_redist": 0.01084010840108401,
+      "n_load_redist": 738.0,
+      "embedding_rows": 1048355.0,
+      "embedding_bytes": 67094720.0,
+      "n_parameters": 16791601,
+      "model_bytes": 67166404,
+      "model": "GCN",
+      "family": "gnn",
+      "seed": 2,
+      "tier": "local",
+      "fit_seconds": 68.84229630000118,
+      "train_seconds": 68.38777409999966,
+      "n_epochs_run": 5,
+      "batch_size": 4096,
+      "standardize": false,
+      "target_fpr": 0.01
+    }
+  ],
+  "config": {
+    "seeds": [
+      0,
+      1,
+      2
+    ],
+    "data": {
+      "path": "data_cache/ieee118.npz",
+      "split_ratios": {
+        "train": 0.7,
+        "val": 0.15,
+        "test": 0.15
+      },
+      "standardize": false,
+      "num_workers": 0
+    },
+    "budget": {
+      "vram_gb": 8,
+      "power_w": 60,
+      "latency_ms": 500
+    },
+    "measure": {
+      "tier": "t4",
+      "latency": {
+        "batch_size": 1,
+        "warmup_iters": 50,
+        "measure_iters": 500,
+        "percentiles": [
+          50,
+          95,
+          99
+        ]
+      },
+      "energy": {
+        "sample_interval_ms": 100,
+        "idle_baseline_s": 5
+      }
+    },
+    "embedding_backend": "reference",
+    "cuda_efftt_module": "",
+    "tt": {
+      "split": {
+        "d": 3,
+        "n_per_core": 4
+      },
+      "rank": 32,
+      "rank_sweep": [
+        4,
+        8,
+        16,
+        24,
+        32,
+        48,
+        64
+      ],
+      "reuse": {
+        "sample_level": true,
+        "batch_level": true
+      }
+    },
+    "train": {
+      "epochs": 20,
+      "batch_size": 4096,
+      "lr": 0.001,
+      "weight_decay": 0.0001,
+      "optimizer": "adam",
+      "grad_clip": 5.0,
+      "early_stop_patience": 4,
+      "amp": false,
+      "pos_weight": null
+    },
+    "baselines": {
+      "bdd": {
+        "enabled": true,
+        "alpha": 0.01,
+        "lnr_sigma": 3.0
+      },
+      "svm": {
+        "enabled": true,
+        "kernel": "rbf",
+        "C": 1.0,
+        "gamma": "scale",
+        "max_train_samples": 4000
+      },
+      "rf": {
+        "enabled": true,
+        "n_estimators": 300,
+        "max_depth": null,
+        "n_jobs": -1
+      },
+      "autoencoder": {
+        "enabled": true,
+        "hidden": [
+          256,
+          64,
+          256
+        ],
+        "latent": 16
+      },
+      "lstm": {
+        "enabled": true,
+        "hidden": 128,
+        "layers": 2,
+        "bidirectional": false
+      },
+      "cnn": {
+        "enabled": true,
+        "channels": [
+          32,
+          64,
+          128
+        ],
+        "kernel": 3,
+        "dropout": 0.1
+      },
+      "gnn": {
+        "enabled": true,
+        "variants": [
+          "gcn",
+          "gat"
+        ],
+        "hidden": 64,
+        "layers": 2,
+        "heads": 4,
+        "dropout": 0.1
+      },
+      "transformer": {
+        "enabled": true,
+        "d_model": 128,
+        "nhead": 4,
+        "layers": 3,
+        "ff": 256,
+        "dropout": 0.1
+      }
+    },
+    "baseline_tuning": {
+      "enabled": false,
+      "grid": {
+        "lr": [
+          0.0003,
+          0.001,
+          0.003
+        ],
+        "batch_size": [
+          1024,
+          4096
+        ],
+        "epochs": [
+          10,
+          20
+        ]
+      }
+    },
+    "ablation": {
+      "components": {
+        "eff_tt": true,
+        "reorder": true,
+        "pipeline": true
+      },
+      "cumulative": true,
+      "lr_by_embedding": {
+        "eff_tt": 0.001,
+        "dense": 0.003
+      }
+    },
+    "fedavg": {
+      "silos": 4,
+      "rounds": 30,
+      "local_epochs": 2,
+      "sync": "tt_cores",
+      "baselines": [
+        "full_embedding"
+      ]
+    },
+    "output": {
+      "results_dir": "results",
+      "figures_dir": "figures",
+      "save_predictions": true,
+      "log_level": "INFO"
+    }
+  },
+  "environment": {
+    "python": "3.13.5",
+    "platform": "Windows-11-10.0.26300-SP0",
+    "processor": "Intel64 Family 6 Model 183 Stepping 1, GenuineIntel",
+    "device_tier": "local",
+    "tier_publishable": false,
+    "torch": "2.14.1+cpu",
+    "cuda_available": false,
+    "nvidia_driver": "592.15"
+  },
+  "budget": {
+    "vram_gb": 8,
+    "power_w": 60,
+    "latency_ms": 500
+  },
+  "data_file": "data_cache/ieee118.npz",
+  "models": [
+    "GCN"
+  ],
+  "seeds": [
+    0,
+    1,
+    2
+  ],
+  "summary": [
+    {
+      "model": "GCN",
+      "family": "gnn",
+      "accuracy_mean": 0.49748148148148147,
+      "accuracy_std": 0.00046259244432581004,
+      "precision_mean": 0.45209903917219973,
+      "precision_std": 0.02180651010674607,
+      "recall_mean": 0.009009009009009005,
+      "recall_std": 0.0009223154627674489,
+      "f1_mean": 0.017663706078294976,
+      "f1_std": 0.0017780914069332825,
+      "auc_mean": 0.5079630071151965,
+      "auc_std": 0.00674321822482482,
+      "fpr_mean": 0.010997176400653882,
+      "fpr_std": 0.00128700461254932,
+      "tpr_at_fpr_1pct_mean": 0.008861320336730172,
+      "tpr_at_fpr_1pct_std": 0.0007674128522680006,
+      "detect_rate_random_mean": 0.012295081967213115,
+      "detect_rate_random_std": 0.004925616496535504,
+      "detect_rate_stealthy_mean": 0.006776789495976282,
+      "detect_rate_stealthy_std": 0.004084561948747545,
+      "detect_rate_load_redist_mean": 0.008130081300813009,
+      "detect_rate_load_redist_std": 0.0027100271002710023,
+      "detect_rate_normal_fp_mean": 0.010997176400653888,
+      "detect_rate_normal_fp_std": 0.0012870046125493218,
+      "train_seconds_mean": 84.7350831666663,
+      "train_seconds_std": 24.67777953155675
+    }
+  ],
+  "skipped": []
+}

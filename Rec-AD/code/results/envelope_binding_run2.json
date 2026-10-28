@@ -1,0 +1,122 @@
+{
+  "device": "NVIDIA GeForce RTX 5060 Laptop GPU",
+  "total_mib": 8150.6,
+  "envelope_mib": 8192.0,
+  "tier": "local",
+  "publishable": false,
+  "note": "Measured on the local RTX 5060 (7.96 GiB). DEVICE_TIERS['local'] has publishable=False and config.yaml restricts reported resource numbers to t4/rtx2060/jetson, so these numbers cannot enter the paper as they stand. They answer whether the envelope binds, which a 16 GB device cannot. Training memory only; Adam state is not included.",
+  "rows": [
+    {
+      "detector": "BDD",
+      "batch": null,
+      "peak_mib": null,
+      "verdict": "not_applicable",
+      "note": "not a torch model"
+    },
+    {
+      "detector": "TemporalResidual",
+      "batch": null,
+      "peak_mib": null,
+      "verdict": "not_applicable",
+      "note": "not a torch model"
+    },
+    {
+      "detector": "SVM",
+      "batch": null,
+      "peak_mib": null,
+      "verdict": "not_applicable",
+      "note": "not a torch model"
+    },
+    {
+      "detector": "RF",
+      "batch": null,
+      "peak_mib": null,
+      "verdict": "not_applicable",
+      "note": "not a torch model"
+    },
+    {
+      "detector": "Autoencoder",
+      "batch": 1024,
+      "peak_mib": 1368.9,
+      "verdict": "fits",
+      "note": "0.17x envelope"
+    },
+    {
+      "detector": "Autoencoder",
+      "batch": 4096,
+      "peak_mib": 1570.5,
+      "verdict": "fits",
+      "note": "0.19x envelope"
+    },
+    {
+      "detector": "LSTM",
+      "batch": 1024,
+      "peak_mib": 1375.1,
+      "verdict": "fits",
+      "note": "0.17x envelope"
+    },
+    {
+      "detector": "LSTM",
+      "batch": 4096,
+      "peak_mib": 1612.9,
+      "verdict": "fits",
+      "note": "0.20x envelope"
+    },
+    {
+      "detector": "CNN",
+      "batch": 1024,
+      "peak_mib": 1371.1,
+      "verdict": "fits",
+      "note": "0.17x envelope"
+    },
+    {
+      "detector": "CNN",
+      "batch": 4096,
+      "peak_mib": 1572.0,
+      "verdict": "fits",
+      "note": "0.19x envelope"
+    },
+    {
+      "detector": "GCN",
+      "batch": 1024,
+      "peak_mib": 1367.1,
+      "verdict": "fits",
+      "note": "0.17x envelope"
+    },
+    {
+      "detector": "GCN",
+      "batch": 4096,
+      "peak_mib": 1728.6,
+      "verdict": "fits",
+      "note": "0.21x envelope"
+    },
+    {
+      "detector": "GAT",
+      "batch": 1024,
+      "peak_mib": 2576.6,
+      "verdict": "fits",
+      "note": "0.31x envelope"
+    },
+    {
+      "detector": "GAT",
+      "batch": 4096,
+      "peak_mib": 9018.2,
+      "verdict": "over_envelope",
+      "note": "1.10x envelope"
+    },
+    {
+      "detector": "Transformer",
+      "batch": 1024,
+      "peak_mib": 1378.4,
+      "verdict": "fits",
+      "note": "0.17x envelope"
+    },
+    {
+      "detector": "Transformer",
+      "batch": 4096,
+      "peak_mib": 1802.2,
+      "verdict": "fits",
+      "note": "0.22x envelope"
+    }
+  ]
+}

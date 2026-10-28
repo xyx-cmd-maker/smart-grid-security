@@ -1,0 +1,62 @@
+{
+  "protocol": "IEEE 118, 8000 samples per point, step injection",
+  "threshold_used": "temporal AUC > 0.95 and spatial AUC < 0.65",
+  "state_step_sigma": 0.02,
+  "note": "The attack is normalised to a per-measurement RMS equal to `attack_scale`, so the ratio to state_step_sigma is the quantity that varies. The largest scale that fails gives the boundary condition for the temporal claim.",
+  "rows": [
+    {
+      "attack_scale": 1.4,
+      "spatial_stealthy_vs_benign": 0.5109,
+      "temporal_stealthy_vs_benign": 0.9507,
+      "spatial_random_vs_benign": 1.0,
+      "temporal_random_vs_benign": 1.0,
+      "temporal_separates": true,
+      "spatial_blind": true
+    },
+    {
+      "attack_scale": 1.2,
+      "spatial_stealthy_vs_benign": 0.5109,
+      "temporal_stealthy_vs_benign": 0.8979,
+      "spatial_random_vs_benign": 1.0,
+      "temporal_random_vs_benign": 1.0,
+      "temporal_separates": false,
+      "spatial_blind": true
+    },
+    {
+      "attack_scale": 1.0,
+      "spatial_stealthy_vs_benign": 0.5109,
+      "temporal_stealthy_vs_benign": 0.8113,
+      "spatial_random_vs_benign": 1.0,
+      "temporal_random_vs_benign": 1.0,
+      "temporal_separates": false,
+      "spatial_blind": true
+    },
+    {
+      "attack_scale": 0.9,
+      "spatial_stealthy_vs_benign": 0.5109,
+      "temporal_stealthy_vs_benign": 0.7569,
+      "spatial_random_vs_benign": 1.0,
+      "temporal_random_vs_benign": 1.0,
+      "temporal_separates": false,
+      "spatial_blind": true
+    },
+    {
+      "attack_scale": 0.8,
+      "spatial_stealthy_vs_benign": 0.5109,
+      "temporal_stealthy_vs_benign": 0.6994,
+      "spatial_random_vs_benign": 1.0,
+      "temporal_random_vs_benign": 1.0,
+      "temporal_separates": false,
+      "spatial_blind": true
+    },
+    {
+      "attack_scale": 0.7,
+      "spatial_stealthy_vs_benign": 0.5109,
+      "temporal_stealthy_vs_benign": 0.6453,
+      "spatial_random_vs_benign": 1.0,
+      "temporal_random_vs_benign": 1.0,
+      "temporal_separates": false,
+      "spatial_blind": true
+    }
+  ]
+}

@@ -1,0 +1,112 @@
+{
+  "device": "NVIDIA GeForce RTX 5060 Laptop GPU",
+  "envelope": {
+    "vram_mib": 8192.0,
+    "power_w": 60.0,
+    "latency_ms": 500.0
+  },
+  "protocol": "batch=1, warmup=50, measure=500, p50/p95/p99",
+  "tier": "local",
+  "publishable": false,
+  "covers": [
+    "latency_ms",
+    "vram_mib"
+  ],
+  "does_not_cover": [
+    "power_w (sampled externally)"
+  ],
+  "over_envelope": [],
+  "note": "tier=local is not publishable per config.yaml and AGENTS.md 4.6. Power must be read from the external sampler.",
+  "rows": [
+    {
+      "model": "Autoencoder",
+      "kind": "baseline",
+      "p50_ms": 0.864,
+      "p95_ms": 1.401,
+      "p99_ms": 1.957,
+      "peak_mib": 266.2,
+      "over": [],
+      "verdict": "fits"
+    },
+    {
+      "model": "LSTM",
+      "kind": "baseline",
+      "p50_ms": 1.227,
+      "p95_ms": 1.904,
+      "p99_ms": 2.423,
+      "peak_mib": 285.4,
+      "over": [],
+      "verdict": "fits"
+    },
+    {
+      "model": "CNN",
+      "kind": "baseline",
+      "p50_ms": 1.614,
+      "p95_ms": 2.383,
+      "p99_ms": 3.31,
+      "peak_mib": 266.6,
+      "over": [],
+      "verdict": "fits"
+    },
+    {
+      "model": "GCN",
+      "kind": "baseline",
+      "p50_ms": 0.971,
+      "p95_ms": 1.547,
+      "p99_ms": 2.119,
+      "peak_mib": 265.6,
+      "over": [],
+      "verdict": "fits"
+    },
+    {
+      "model": "GAT",
+      "kind": "baseline",
+      "p50_ms": 1.885,
+      "p95_ms": 2.819,
+      "p99_ms": 3.642,
+      "peak_mib": 266.3,
+      "over": [],
+      "verdict": "fits"
+    },
+    {
+      "model": "Transformer",
+      "kind": "baseline",
+      "p50_ms": 2.201,
+      "p95_ms": 3.106,
+      "p99_ms": 4.225,
+      "peak_mib": 268.5,
+      "over": [],
+      "verdict": "fits"
+    },
+    {
+      "model": "Rec-AD (full)",
+      "verdict": "build_failed",
+      "note": "No module named '_harness'"
+    },
+    {
+      "model": "Rec-AD (no TT)",
+      "verdict": "build_failed",
+      "note": "No module named '_harness'"
+    },
+    {
+      "model": "BDD",
+      "verdict": "not_applicable",
+      "note": "not a torch model"
+    },
+    {
+      "model": "TemporalResidual",
+      "verdict": "not_applicable",
+      "note": "not a torch model"
+    },
+    {
+      "model": "SVM",
+      "verdict": "not_applicable",
+      "note": "not a torch model"
+    },
+    {
+      "model": "RF",
+      "verdict": "not_applicable",
+      "note": "not a torch model"
+    }
+  ]
+}

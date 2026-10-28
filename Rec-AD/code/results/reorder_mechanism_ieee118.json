@@ -1,0 +1,39 @@
+{
+  "experiment": "reorder_mechanism_ieee118",
+  "generated_from": "code/run_reorder_c4.log (UTF-16, PowerShell redirection)",
+  "extracted_on": "2026-10-25",
+  "metric": "TT prefix reuse rate induced by each identifier ordering",
+  "system": "IEEE 118",
+  "records": [
+    {
+      "ordering": "none",
+      "reuse_rate": 0.6837,
+      "contractions": 129724,
+      "ratio": 1.52
+    },
+    {
+      "ordering": "random",
+      "reuse_rate": 0.0066,
+      "contractions": 196481,
+      "ratio": 1.0
+    },
+    {
+      "ordering": "frequency",
+      "reuse_rate": 0.7133,
+      "contractions": 126803,
+      "ratio": 1.55
+    },
+    {
+      "ordering": "topology",
+      "reuse_rate": 0.673,
+      "contractions": 130780,
+      "ratio": 1.51
+    }
+  ],
+  "derived": {
+    "topology_vs_none_reuse": 0.9843,
+    "topology_vs_frequency_reuse": 0.9435,
+    "topology_vs_random_reuse": 101.97
+  },
+  "note": "Values are copied from the log, not recomputed. The log is the primary source; this file exists so the paper's numbers have a source a program can read."
+}

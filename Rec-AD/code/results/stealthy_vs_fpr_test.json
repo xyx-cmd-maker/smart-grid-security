@@ -1,0 +1,64 @@
+{
+  "protocol": "pooled two-proportion z test, same detector and threshold",
+  "why": "A detect rate's chance level is the row's false-alarm rate, not 0.5. An earlier plan to compare 0.3837 against 0.5 was answered on the wrong scale.",
+  "note": "Rates are taken from slots.json, not recomputed from scores. The counts are derived from the rates times the split sizes, so they inherit any rounding in the stored rates.",
+  "rows": [
+    {
+      "row": "BDD",
+      "detect_rate": 0.0114,
+      "fpr": 0.0107,
+      "n_stealthy": 787,
+      "n_benign": 2243,
+      "detect_count": 9,
+      "fp_count": 24,
+      "ratio_to_floor": 1.07,
+      "z": 0.171,
+      "p_two_sided": 0.8641,
+      "detect_rate_ci95": [
+        0.006,
+        0.0216
+      ],
+      "above_floor": false,
+      "useful_threshold": 0.9,
+      "useful": false
+    },
+    {
+      "row": "Transformer",
+      "detect_rate": 0.3837,
+      "fpr": 0.0122,
+      "n_stealthy": 787,
+      "n_benign": 2243,
+      "detect_count": 302,
+      "fp_count": 27,
+      "ratio_to_floor": 31.45,
+      "z": 28.837,
+      "p_two_sided": 0.0,
+      "detect_rate_ci95": [
+        0.3504,
+        0.4182
+      ],
+      "above_floor": true,
+      "useful_threshold": 0.9,
+      "useful": false
+    },
+    {
+      "row": "TemporalResidual",
+      "detect_rate": 0.9581,
+      "fpr": 0.021,
+      "n_stealthy": 787,
+      "n_benign": 2243,
+      "detect_count": 754,
+      "fp_count": 47,
+      "ratio_to_floor": 45.62,
+      "z": 51.291,
+      "p_two_sided": 0.0,
+      "detect_rate_ci95": [
+        0.9417,
+        0.97
+      ],
+      "above_floor": true,
+      "useful_threshold": 0.9,
+      "useful": true
+    }
+  ]
+}

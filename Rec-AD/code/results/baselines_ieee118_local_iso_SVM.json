@@ -1,0 +1,396 @@
+{
+  "experiment": "baselines_ieee118_local_iso_SVM",
+  "generated_at": "2026-10-07T09:23:59.944732+00:00",
+  "n_records": 3,
+  "records": [
+    {
+      "threshold_strategy": "target_fpr",
+      "val_accuracy": 0.49866666666666665,
+      "val_precision": 0.5002895193977994,
+      "val_recall": 0.3828090385467433,
+      "val_f1": 0.4337349397585448,
+      "val_fpr": 0.38475256353098514,
+      "val_tp": 864,
+      "val_fp": 863,
+      "val_tn": 1380,
+      "val_fn": 1393,
+      "val_n_samples": 4500,
+      "val_threshold": 0.5,
+      "val_auc": 0.4968287100457861,
+      "val_ap": 0.5001448945321647,
+      "val_tpr_at_fpr_1pct": 0.3828090385467435,
+      "accuracy": 0.504,
+      "precision": 0.5072547881601854,
+      "recall": 0.3872396987151084,
+      "f1": 0.43919597989900633,
+      "fpr": 0.37851092287115456,
+      "tp": 874,
+      "fp": 849,
+      "tn": 1394,
+      "fn": 1383,
+      "n_samples": 4500,
+      "threshold": 0.5,
+      "auc": 0.5094829559831789,
+      "ap": 0.5065703813148789,
+      "tpr_at_fpr_1pct": 0.38723969871510855,
+      "detect_rate_normal_fp": 0.3785109228711547,
+      "n_normal": 2243.0,
+      "detect_rate_random": 0.3592896174863388,
+      "n_random": 732.0,
+      "detect_rate_stealthy": 0.4155019059720457,
+      "n_stealthy": 787.0,
+      "detect_rate_load_redist": 0.38482384823848237,
+      "n_load_redist": 738.0,
+      "n_parameters": 1208700,
+      "model_bytes": 4,
+      "model": "SVM",
+      "family": "classical_ml",
+      "seed": 0,
+      "tier": "local",
+      "fit_seconds": 29.261937399998715,
+      "train_seconds": NaN,
+      "n_epochs_run": 0,
+      "batch_size": 4096,
+      "standardize": false,
+      "target_fpr": 0.01
+    },
+    {
+      "threshold_strategy": "target_fpr",
+      "val_accuracy": 0.49955555555555553,
+      "val_precision": 0.5490196078431264,
+      "val_recall": 0.012405848471422237,
+      "val_f1": 0.02426343154241777,
+      "val_fpr": 0.010254123941150241,
+      "val_tp": 28,
+      "val_fp": 23,
+      "val_tn": 2220,
+      "val_fn": 2229,
+      "val_n_samples": 4500,
+      "val_threshold": 0.5206032395362854,
+      "val_auc": 0.5026376551595265,
+      "val_ap": 0.49740437793928044,
+      "val_tpr_at_fpr_1pct": 0.012405848471422242,
+      "accuracy": 0.49933333333333335,
+      "precision": 0.5263157894736773,
+      "recall": 0.017722640673460337,
+      "f1": 0.03429061294464333,
+      "fpr": 0.016049933125278637,
+      "tp": 40,
+      "fp": 36,
+      "tn": 2207,
+      "fn": 2217,
+      "n_samples": 4500,
+      "threshold": 0.5206032395362854,
+      "auc": 0.5083325250950578,
+      "ap": 0.50717743114373,
+      "tpr_at_fpr_1pct": 0.012405848471422242,
+      "detect_rate_normal_fp": 0.016049933125278644,
+      "n_normal": 2243.0,
+      "detect_rate_random": 0.01092896174863388,
+      "n_random": 732.0,
+      "detect_rate_stealthy": 0.021601016518424398,
+      "n_stealthy": 787.0,
+      "detect_rate_load_redist": 0.02032520325203252,
+      "n_load_redist": 738.0,
+      "n_parameters": 1207476,
+      "model_bytes": 4,
+      "model": "SVM",
+      "family": "classical_ml",
+      "seed": 1,
+      "tier": "local",
+      "fit_seconds": 25.790600199998153,
+      "train_seconds": NaN,
+      "n_epochs_run": 0,
+      "batch_size": 4096,
+      "standardize": false,
+      "target_fpr": 0.01
+    },
+    {
+      "threshold_strategy": "target_fpr",
+      "val_accuracy": 0.4968888888888889,
+      "val_precision": 0.4102564102563997,
+      "val_recall": 0.0070890562693841355,
+      "val_f1": 0.013937282229931751,
+      "val_fpr": 0.010254123941150241,
+      "val_tp": 16,
+      "val_fp": 23,
+      "val_tn": 2220,
+      "val_fn": 2241,
+      "val_n_samples": 4500,
+      "val_threshold": 0.5144087076187134,
+      "val_auc": 0.4895065651005807,
+      "val_ap": 0.49195985905574197,
+      "val_tpr_at_fpr_1pct": 0.007089056269384138,
+      "accuracy": 0.496,
+      "precision": 0.3999999999999927,
+      "recall": 0.009747452370403186,
+      "f1": 0.019031141868465648,
+      "fpr": 0.014712438698172086,
+      "tp": 22,
+      "fp": 33,
+      "tn": 2210,
+      "fn": 2235,
+      "n_samples": 4500,
+      "threshold": 0.5144087076187134,
+      "auc": 0.49595749173671017,
+      "ap": 0.4976631811012435,
+      "tpr_at_fpr_1pct": 0.0057598582188746125,
+      "detect_rate_normal_fp": 0.014712438698172091,
+      "n_normal": 2243.0,
+      "detect_rate_random": 0.00546448087431694,
+      "n_random": 732.0,
+      "detect_rate_stealthy": 0.015247776365946633,
+      "n_stealthy": 787.0,
+      "detect_rate_load_redist": 0.008130081300813009,
+      "n_load_redist": 738.0,
+      "n_parameters": 1208394,
+      "model_bytes": 4,
+      "model": "SVM",
+      "family": "classical_ml",
+      "seed": 2,
+      "tier": "local",
+      "fit_seconds": 26.09041630000138,
+      "train_seconds": NaN,
+      "n_epochs_run": 0,
+      "batch_size": 4096,
+      "standardize": false,
+      "target_fpr": 0.01
+    }
+  ],
+  "config": {
+    "seeds": [
+      0,
+      1,
+      2
+    ],
+    "data": {
+      "path": "data_cache/ieee118.npz",
+      "split_ratios": {
+        "train": 0.7,
+        "val": 0.15,
+        "test": 0.15
+      },
+      "standardize": false,
+      "num_workers": 0
+    },
+    "budget": {
+      "vram_gb": 8,
+      "power_w": 60,
+      "latency_ms": 500
+    },
+    "measure": {
+      "tier": "t4",
+      "latency": {
+        "batch_size": 1,
+        "warmup_iters": 50,
+        "measure_iters": 500,
+        "percentiles": [
+          50,
+          95,
+          99
+        ]
+      },
+      "energy": {
+        "sample_interval_ms": 100,
+        "idle_baseline_s": 5
+      }
+    },
+    "embedding_backend": "reference",
+    "cuda_efftt_module": "",
+    "tt": {
+      "split": {
+        "d": 3,
+        "n_per_core": 4
+      },
+      "rank": 32,
+      "rank_sweep": [
+        4,
+        8,
+        16,
+        24,
+        32,
+        48,
+        64
+      ],
+      "reuse": {
+        "sample_level": true,
+        "batch_level": true
+      }
+    },
+    "train": {
+      "epochs": 20,
+      "batch_size": 4096,
+      "lr": 0.001,
+      "weight_decay": 0.0001,
+      "optimizer": "adam",
+      "grad_clip": 5.0,
+      "early_stop_patience": 4,
+      "amp": false,
+      "pos_weight": null
+    },
+    "baselines": {
+      "bdd": {
+        "enabled": true,
+        "alpha": 0.01,
+        "lnr_sigma": 3.0
+      },
+      "svm": {
+        "enabled": true,
+        "kernel": "rbf",
+        "C": 1.0,
+        "gamma": "scale",
+        "max_train_samples": 4000
+      },
+      "rf": {
+        "enabled": true,
+        "n_estimators": 300,
+        "max_depth": null,
+        "n_jobs": -1
+      },
+      "autoencoder": {
+        "enabled": true,
+        "hidden": [
+          256,
+          64,
+          256
+        ],
+        "latent": 16
+      },
+      "lstm": {
+        "enabled": true,
+        "hidden": 128,
+        "layers": 2,
+        "bidirectional": false
+      },
+      "cnn": {
+        "enabled": true,
+        "channels": [
+          32,
+          64,
+          128
+        ],
+        "kernel": 3,
+        "dropout": 0.1
+      },
+      "gnn": {
+        "enabled": true,
+        "variants": [
+          "gcn",
+          "gat"
+        ],
+        "hidden": 64,
+        "layers": 2,
+        "heads": 4,
+        "dropout": 0.1
+      },
+      "transformer": {
+        "enabled": true,
+        "d_model": 128,
+        "nhead": 4,
+        "layers": 3,
+        "ff": 256,
+        "dropout": 0.1
+      }
+    },
+    "baseline_tuning": {
+      "enabled": false,
+      "grid": {
+        "lr": [
+          0.0003,
+          0.001,
+          0.003
+        ],
+        "batch_size": [
+          1024,
+          4096
+        ],
+        "epochs": [
+          10,
+          20
+        ]
+      }
+    },
+    "ablation": {
+      "components": {
+        "eff_tt": true,
+        "reorder": true,
+        "pipeline": true
+      },
+      "cumulative": true,
+      "lr_by_embedding": {
+        "eff_tt": 0.001,
+        "dense": 0.003
+      }
+    },
+    "fedavg": {
+      "silos": 4,
+      "rounds": 30,
+      "local_epochs": 2,
+      "sync": "tt_cores",
+      "baselines": [
+        "full_embedding"
+      ]
+    },
+    "output": {
+      "results_dir": "results",
+      "figures_dir": "figures",
+      "save_predictions": true,
+      "log_level": "INFO"
+    }
+  },
+  "environment": {
+    "python": "3.13.5",
+    "platform": "Windows-11-10.0.26300-SP0",
+    "processor": "Intel64 Family 6 Model 183 Stepping 1, GenuineIntel",
+    "device_tier": "local",
+    "tier_publishable": false,
+    "torch": "2.14.1+cpu",
+    "cuda_available": false,
+    "nvidia_driver": "592.15"
+  },
+  "budget": {
+    "vram_gb": 8,
+    "power_w": 60,
+    "latency_ms": 500
+  },
+  "data_file": "data_cache/ieee118.npz",
+  "models": [
+    "SVM"
+  ],
+  "seeds": [
+    0,
+    1,
+    2
+  ],
+  "summary": [
+    {
+      "model": "SVM",
+      "family": "classical_ml",
+      "accuracy_mean": 0.4997777777777778,
+      "accuracy_std": 0.004018475848894502,
+      "precision_mean": 0.4778568592112851,
+      "precision_std": 0.06809624319632833,
+      "recall_mean": 0.13823659725299062,
+      "recall_std": 0.21567987692511462,
+      "f1_mean": 0.16417257823737177,
+      "f1_std": 0.23829942606001753,
+      "auc_mean": 0.5045909909383156,
+      "auc_std": 0.007498923533093087,
+      "fpr_mean": 0.13642443156486841,
+      "fpr_std": 0.20965411795997962,
+      "tpr_at_fpr_1pct_mean": 0.13513513513513514,
+      "tpr_at_fpr_1pct_std": 0.21835424321500116,
+      "detect_rate_random_mean": 0.12522768670309656,
+      "detect_rate_random_std": 0.20272199120788775,
+      "detect_rate_stealthy_mean": 0.15078356628547226,
+      "detect_rate_stealthy_std": 0.229274814229389,
+      "detect_rate_load_redist_mean": 0.13775971093044262,
+      "detect_rate_load_redist_std": 0.21405068607149036,
+      "detect_rate_normal_fp_mean": 0.13642443156486847,
+      "detect_rate_normal_fp_std": 0.20965411795997968,
+      "train_seconds_mean": null,
+      "train_seconds_std": 0.0
+    }
+  ],
+  "skipped": []
+}

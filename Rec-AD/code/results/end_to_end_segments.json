@@ -1,0 +1,49 @@
+{
+  "device": "NVIDIA GeForce RTX 5060 Laptop GPU",
+  "protocol": "batch=1, warmup=50, measure=500, three segments timed separately",
+  "weights": "initialised, not trained: timing depends on shapes and operations, not values",
+  "rows": [
+    {
+      "model": "CNN",
+      "input_snapshots": 1,
+      "prep_ms": {
+        "p50": 0.14659999578725547,
+        "p95": 0.3004300029715523,
+        "p99": 0.3963010053848848
+      },
+      "transfer_ms": {
+        "p50": 0.16509999841218814,
+        "p95": 0.2288849951582959,
+        "p99": 0.40055700737866556
+      },
+      "forward_ms": {
+        "p50": 1.4867000063532032,
+        "p95": 2.4783849919913328,
+        "p99": 2.8098400008457243
+      },
+      "end_to_end_p50_ms": 1.7984000005526468,
+      "peak_allocated_mib": 73.818359375
+    },
+    {
+      "model": "Transformer",
+      "input_snapshots": 1,
+      "prep_ms": {
+        "p50": 0.17869999282993376,
+        "p95": 0.4047350106702651,
+        "p99": 0.48261499308864586
+      },
+      "transfer_ms": {
+        "p50": 0.17460000526625663,
+        "p95": 0.2237100008642301,
+        "p99": 0.2704490070755127
+      },
+      "forward_ms": {
+        "p50": 2.170500003558118,
+        "p95": 3.60746000515064,
+        "p99": 4.030338005541124
+      },
+      "end_to_end_p50_ms": 2.5238000016543083,
+      "peak_allocated_mib": 140.166015625
+    }
+  ]
+}

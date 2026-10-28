@@ -1,0 +1,129 @@
+{
+  "device": "NVIDIA GeForce RTX 5060 Laptop GPU",
+  "total_mib": 8150.6,
+  "envelope_mib": 8192.0,
+  "protocol": "forward only under torch.no_grad, eval mode",
+  "tier": "local",
+  "publishable": false,
+  "covers": "MEMORY constraint only",
+  "does_not_cover": [
+    "power_w",
+    "latency_ms"
+  ],
+  "note": "Covers one of the three envelope constraints. `n_over_budget` counts detectors exceeding ANY constraint, so this cannot fill that slot on its own. tier=local is not publishable per config.yaml measure.tier and AGENTS.md 4.6.",
+  "memory_over_envelope": [],
+  "rows": [
+    {
+      "detector": "Autoencoder",
+      "batch": 1,
+      "peak_mib": 266.2,
+      "ratio_to_envelope": 0.032,
+      "verdict": "fits"
+    },
+    {
+      "detector": "Autoencoder",
+      "batch": 32,
+      "peak_mib": 268.4,
+      "ratio_to_envelope": 0.033,
+      "verdict": "fits"
+    },
+    {
+      "detector": "LSTM",
+      "batch": 1,
+      "peak_mib": 285.4,
+      "ratio_to_envelope": 0.035,
+      "verdict": "fits"
+    },
+    {
+      "detector": "LSTM",
+      "batch": 32,
+      "peak_mib": 289.9,
+      "ratio_to_envelope": 0.035,
+      "verdict": "fits"
+    },
+    {
+      "detector": "CNN",
+      "batch": 1,
+      "peak_mib": 266.6,
+      "ratio_to_envelope": 0.033,
+      "verdict": "fits"
+    },
+    {
+      "detector": "CNN",
+      "batch": 32,
+      "peak_mib": 270.3,
+      "ratio_to_envelope": 0.033,
+      "verdict": "fits"
+    },
+    {
+      "detector": "GCN",
+      "batch": 1,
+      "peak_mib": 265.6,
+      "ratio_to_envelope": 0.032,
+      "verdict": "fits"
+    },
+    {
+      "detector": "GCN",
+      "batch": 32,
+      "peak_mib": 271.2,
+      "ratio_to_envelope": 0.033,
+      "verdict": "fits"
+    },
+    {
+      "detector": "GAT",
+      "batch": 1,
+      "peak_mib": 266.3,
+      "ratio_to_envelope": 0.033,
+      "verdict": "fits"
+    },
+    {
+      "detector": "GAT",
+      "batch": 32,
+      "peak_mib": 291.8,
+      "ratio_to_envelope": 0.036,
+      "verdict": "fits"
+    },
+    {
+      "detector": "Transformer",
+      "batch": 1,
+      "peak_mib": 268.5,
+      "ratio_to_envelope": 0.033,
+      "verdict": "fits"
+    },
+    {
+      "detector": "Transformer",
+      "batch": 32,
+      "peak_mib": 272.1,
+      "ratio_to_envelope": 0.033,
+      "verdict": "fits"
+    },
+    {
+      "detector": "BDD",
+      "batch": null,
+      "peak_mib": null,
+      "verdict": "not_applicable",
+      "note": "not a torch model"
+    },
+    {
+      "detector": "TemporalResidual",
+      "batch": null,
+      "peak_mib": null,
+      "verdict": "not_applicable",
+      "note": "not a torch model"
+    },
+    {
+      "detector": "SVM",
+      "batch": null,
+      "peak_mib": null,
+      "verdict": "not_applicable",
+      "note": "not a torch model"
+    },
+    {
+      "detector": "RF",
+      "batch": null,
+      "peak_mib": null,
+      "verdict": "not_applicable",
+      "note": "not a torch model"
+    }
+  ]
+}
